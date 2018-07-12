@@ -26,16 +26,4 @@ public class JsoupUtil {
     return e.select(rule);
   }
 
-  public static Document getDocumentFromUrl(String url, boolean ajaxPage) {
-    String html = WebPageContentUtil.getWebPageContent(url, ajaxPage);
-    Document document = null;
-    try {
-      document = Jsoup.parse(html);
-    } catch (Exception e) {
-      logger.error("解析html异常.html:" + html, e);
-      return null;
-    }
-    return document;
-  }
-
 }

@@ -1,4 +1,4 @@
-package com.yaohui.caij.service.impl;
+package com.yaohui.caij.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.yaohui.caij.constant.model.DetailedPageConfig;
@@ -6,15 +6,14 @@ import com.yaohui.caij.constant.model.PageConfig;
 import com.yaohui.caij.constant.model.ParamsElement;
 import com.yaohui.caij.constant.model.WebPageConfig;
 import com.yaohui.caij.enums.ContentType;
-import com.yaohui.caij.service.CaijService;
-import com.yaohui.caij.utils.JsoupUtil;
 import com.yaohui.caij.utils.rule.DetailPageUrlRule;
 import com.yaohui.caij.utils.rule.NextPageUrlRule;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,11 +22,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Service
-public class CaijServiceImpl implements CaijService {
+public class CaijUtils {
 
-  @Override
-  public List<WebPageConfig> listWebPageConfig(WebPageConfig webPageConfig, PageConfig pageConfig) {
+  public static final Logger logger = LoggerFactory.getLogger(CaijUtils.class);
+
+  public static List<WebPageConfig> listWebPageConfig(WebPageConfig webPageConfig, PageConfig pageConfig) {
     List<WebPageConfig> webPageConfigList = new ArrayList<WebPageConfig>();
     webPageConfigList.add(webPageConfig);
     if (pageConfig != null) {
@@ -44,10 +43,14 @@ public class CaijServiceImpl implements CaijService {
     return webPageConfigList;
   }
 
-  @Override
-  public List<Map<String, Object>> dealAndReturn(WebPageConfig webPageConfig) {
+  public static List<Map<String, Object>> dealAndReturn(WebPageConfig webPageConfig) {
     System.out.println(webPageConfig.getTargetUrl());
-    Document doc = JsoupUtil.getDocumentFromUrl(webPageConfig.getTargetUrl(), webPageConfig.isAjaxPage());
+    String webContent = WebPageContentUtil.getWebPageContent(webPageConfig.getTargetUrl(), webPageConfig.isDynamicPage());
+    if (webContent == null) {
+      logger.error("获取网页内容异常.url:" + webPageConfig.getTargetUrl());
+      return null;
+    }
+    Document doc = JsoupUtil.getDocumentFromContent(webContent);
     List<Element> entityContentList = JsoupUtil.selectElements(doc, webPageConfig.getEntityListXpath());
     List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
     for (Element e : entityContentList) {
@@ -56,7 +59,8 @@ public class CaijServiceImpl implements CaijService {
       DetailedPageConfig detailedPageConfig = webPageConfig.getDetailedPageConfig();
       if (detailedPageConfig != null) {
         String detailPageUrl = DetailPageUrlRule.getDetailPageUrl(webPageConfig, e);
-        Document detailDoc = JsoupUtil.getDocumentFromUrl(detailPageUrl, webPageConfig.isAjaxPage());
+        String detailWebContent = WebPageContentUtil.getWebPageContent(detailPageUrl, webPageConfig.isDynamicPage());
+        Document detailDoc = JsoupUtil.getDocumentFromContent(detailWebContent);
         getResultMap(webPageConfig.getOtherParamsRuleMap(), detailDoc, m);
       }
       resultList.add(m);

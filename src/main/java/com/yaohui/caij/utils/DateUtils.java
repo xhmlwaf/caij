@@ -19,26 +19,26 @@ public class DateUtils {
   }
 
   public static void main(String[] args) {
-    try {
-      Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-11");
-      Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-20");
-      System.out.println(differentDaysByMillisecond(date1,date2));
-
-      Date date3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-11 09:10:12");
-      Date date4 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-20 07:11:01");
-      System.out.println(differentDaysByMillisecond(date3,date4));
-
-      Date date5 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-11 19:10:12");
-      Date date6 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-20 07:11:01");
-      System.out.println(differentDaysByMillisecond(date5,date6));
-
-      Date date7 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-11 19:10:12");
-      Date date8 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-20 23:11:01");
-      System.out.println(differentDaysByMillisecond(date7,date8));
-
-    }catch (Exception e){
-
-    }
+//    try {
+//      Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-11");
+//      Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-20");
+//      System.out.println(differentDaysByMillisecond(date1,date2));
+//
+//      Date date3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-11 09:10:12");
+//      Date date4 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-20 07:11:01");
+//      System.out.println(differentDaysByMillisecond(date3,date4));
+//
+//      Date date5 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-11 19:10:12");
+//      Date date6 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-20 07:11:01");
+//      System.out.println(differentDaysByMillisecond(date5,date6));
+//
+//      Date date7 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-11 19:10:12");
+//      Date date8 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-20 23:11:01");
+//      System.out.println(differentDaysByMillisecond(date7,date8));
+//
+//    }catch (Exception e){
+//
+//    }
 
   }
   /**

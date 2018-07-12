@@ -40,7 +40,7 @@ public class WebPageConfig {
     /**
      * 动态网站
      */
-    private boolean ajaxPage;
+    private boolean dynamicPage;
 
 
     public String getTargetUrl() {
@@ -95,11 +95,11 @@ public class WebPageConfig {
         this.otherParamsRuleMap = otherParamsRuleMap;
     }
 
-    public boolean isAjaxPage() {
-        return ajaxPage;
+    public boolean isDynamicPage() {
+        return dynamicPage;
     }
 
-    public void setAjaxPage(boolean ajaxPage) {
-        this.ajaxPage = ajaxPage;
+    public void setDynamicPage(boolean dynamicPage) {
+        this.dynamicPage = dynamicPage;
     }
 }

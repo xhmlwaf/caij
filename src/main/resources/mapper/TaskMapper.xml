@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaohui.caij.dao.TaskMapper">
+  <resultMap id="BaseResultMap" type="com.yaohui.caij.dao.entity.Task">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="target_url" jdbcType="VARCHAR" property="targetUrl" />
+    <result column="entity_list_xpath" jdbcType="VARCHAR" property="entityListXpath" />
+    <result column="params_rule_map" jdbcType="VARCHAR" property="paramsRuleMap" />
+    <result column="detail_page_config" jdbcType="VARCHAR" property="detailPageConfig" />
+    <result column="detail_params_rule_map" jdbcType="VARCHAR" property="detailParamsRuleMap" />
+    <result column="is_dynamic" jdbcType="TINYINT" property="isDynamic" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="list[0].id!=null">
+        id,
+      </if>
+      <if test="list[0].name!=null">
+        name,
+      </if>
+      <if test="list[0].targetUrl!=null">
+        target_url,
+      </if>
+      <if test="list[0].entityListXpath!=null">
+        entity_list_xpath,
+      </if>
+      <if test="list[0].paramsRuleMap!=null">
+        params_rule_map,
+      </if>
+      <if test="list[0].detailPageConfig!=null">
+        detail_page_config,
+      </if>
+      <if test="list[0].detailParamsRuleMap!=null">
+        detail_params_rule_map,
+      </if>
+      <if test="list[0].isDynamic!=null">
+        is_dynamic,
+      </if>
+      <if test="list[0].createdAt!=null">
+        created_at,
+      </if>
+      <if test="list[0].status!=null">
+        status,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix=" (" suffix=")" suffixOverrides=",">
+        <if test="item.id!=null">
+          #{item.id,jdbcType=INTEGER},
+        </if>
+        <if test="item.name!=null">
+          #{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          #{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          #{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          #{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          #{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailParamsRuleMap!=null">
+          #{item.detailParamsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.isDynamic!=null">
+          #{item.isDynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.createdAt!=null">
+          #{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.status!=null">
+          #{item.status,jdbcType=TINYINT},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    <foreach collection="list" index="index" item="item" separator=";">
+      update task
+      <set>
+        <if test="item.name!=null">
+          name=#{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          target_url=#{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          entity_list_xpath=#{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          params_rule_map=#{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          detail_page_config=#{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailParamsRuleMap!=null">
+          detail_params_rule_map=#{item.detailParamsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.isDynamic!=null">
+          is_dynamic=#{item.isDynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.createdAt!=null">
+          created_at=#{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.status!=null">
+          status=#{item.status,jdbcType=TINYINT},
+        </if>
+      </set>
+      where 
+      id = #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+</mapper>
