@@ -48,9 +48,9 @@ public class TaskBizImpl implements TaskBiz {
 
     @Override
     public Result<TaskQueryRspDTO> selectByPrimaryKey(Integer id) {
-    Task task = taskService.selectByPrimaryKey(id);
-    TaskQueryRspDTO dto = do2TaskQueryRspDTO(task);
-    return Result.success(dto);
+        Task task = taskService.selectByPrimaryKey(id);
+        TaskQueryRspDTO dto = do2TaskQueryRspDTO(task);
+        return Result.success(dto);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class TaskBizImpl implements TaskBiz {
             for (Task e : taskList) {
                 TaskQueryRspDTO dto = do2TaskQueryRspDTO(e);
                 dtoList.add(dto);
-             }
+            }
         }
         return Result.success(dtoList);
     }

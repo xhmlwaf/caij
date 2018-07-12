@@ -11,6 +11,7 @@ public interface TaskService {
 
     /**
      * 插入记录
+     *
      * @param record
      * @return
      */
@@ -18,6 +19,7 @@ public interface TaskService {
 
     /**
      * 根据主键删除
+     *
      * @param id
      * @return
      */
@@ -25,6 +27,7 @@ public interface TaskService {
 
     /**
      * 根据主键更新
+     *
      * @param record
      * @return
      */
@@ -32,6 +35,7 @@ public interface TaskService {
 
     /**
      * 根据主键查询
+     *
      * @param id
      * @return
      */
@@ -39,53 +43,58 @@ public interface TaskService {
 
     /**
      * 根据ID列表查询
+     *
      * @param ids
      * @return
      */
     List<Task> selectByPrimaryKeyList(List<Integer> ids);
 
     /**
-    * 分页查询
-    * @param record
-    * @param pageNo
-    * @param pageSize
-    * @param orderByClause
-    * @return
-    */
+     * 分页查询
+     *
+     * @param record
+     * @param pageNo
+     * @param pageSize
+     * @param orderByClause
+     * @return
+     */
     Page<Task> selectByRecordForPage(Task record, int pageNo, int pageSize, String orderByClause);
 
     /**
-    * 列表查询
-    * @param record
-    * @return
-    */
-	List<Task> selectByRecordForList(Task record);
+     * 列表查询
+     *
+     * @param record
+     * @return
+     */
+    List<Task> selectByRecordForList(Task record);
 
     /**
-    * 根据参数分页查询
-    * @param id
-    * @param name
-    * @param isDynamic
-    * @param startCreatedAt
-    * @param endCreatedAt
-    * @param status
-    * @param pageNo
-    * @param pageSize
-    * @param orderByClause
-    * @return
-    */
+     * 根据参数分页查询
+     *
+     * @param id
+     * @param name
+     * @param isDynamic
+     * @param startCreatedAt
+     * @param endCreatedAt
+     * @param status
+     * @param pageNo
+     * @param pageSize
+     * @param orderByClause
+     * @return
+     */
     Page<Task> selectByParamsForPage(Integer id, String name, Byte isDynamic, Date startCreatedAt, Date endCreatedAt, Byte status, int pageNo, int pageSize, String orderByClause);
 
     /**
-    * 根据参数列表查询
-    * @param id
-    * @param name
-    * @param isDynamic
-    * @param startCreatedAt
-    * @param endCreatedAt
-    * @param status
-    * @return
-    */
+     * 根据参数列表查询
+     *
+     * @param id
+     * @param name
+     * @param isDynamic
+     * @param startCreatedAt
+     * @param endCreatedAt
+     * @param status
+     * @return
+     */
     List<Task> selectByParamsForList(Integer id, String name, Byte isDynamic, Date startCreatedAt, Date endCreatedAt, Byte status);
 
 }

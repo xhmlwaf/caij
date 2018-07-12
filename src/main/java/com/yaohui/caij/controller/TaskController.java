@@ -79,41 +79,41 @@ public class TaskController {
     @PostMapping("/task/batch")
     @ApiOperation(value = "根据ID列表批量查询记录")
     Result<List<TaskQueryRspDTO>> selectByPrimaryKeyList(@Valid @RequestBody List<Integer> ids) {
-    return taskBiz.selectByPrimaryKeyList(ids);
+        return taskBiz.selectByPrimaryKeyList(ids);
     }
 
     /**
-    * 根据参数分页查询
-    */
+     * 根据参数分页查询
+     */
     @GetMapping("/task")
     @ApiOperation(value = "参数查询分页数据")
     PagedResult<TaskQueryRspDTO> selectByParamsForPage(
-        @RequestParam(value = "id", required = false) Integer id,
-        @RequestParam(value = "name", required = false) String name,
-        @RequestParam(value = "isDynamic", required = false) Byte isDynamic,
-        @RequestParam(value = "startCreatedAt", required = false) Date startCreatedAt,
-        @RequestParam(value = "endCreatedAt", required = false) Date endCreatedAt,
-        @RequestParam(value = "status", required = false) Byte status,
-        @RequestParam(value = "pageNo", required = false, defaultValue = "1") @Min(value = 1, message = "最小值1") int pageNo,
-        @RequestParam(value = "pageSize", required = false, defaultValue = "1") @Min(value = 1, message = "最小值1") int pageSize,
-        @RequestParam(value = "pageSize", required = false) String orderByClause) {
+            @RequestParam(value = "id", required = false) Integer id,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "isDynamic", required = false) Byte isDynamic,
+            @RequestParam(value = "startCreatedAt", required = false) Date startCreatedAt,
+            @RequestParam(value = "endCreatedAt", required = false) Date endCreatedAt,
+            @RequestParam(value = "status", required = false) Byte status,
+            @RequestParam(value = "pageNo", required = false, defaultValue = "1") @Min(value = 1, message = "最小值1") int pageNo,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "1") @Min(value = 1, message = "最小值1") int pageSize,
+            @RequestParam(value = "pageSize", required = false) String orderByClause) {
         return taskBiz.selectByParamsForPage(id, name, isDynamic, startCreatedAt, endCreatedAt, status, pageNo, pageSize, orderByClause);
     }
 
     /**
-    * 根据参数列表查询
-    */
+     * 根据参数列表查询
+     */
     @GetMapping("/task/all")
     @ApiOperation(value = "参数查询全量数据")
     Result<List<TaskQueryRspDTO>> selectByParamsForList(
-        @RequestParam(value = "id", required = false) Integer id,
-        @RequestParam(value = "name", required = false) String name,
-        @RequestParam(value = "isDynamic", required = false) Byte isDynamic,
-        @RequestParam(value = "startCreatedAt", required = false) Date startCreatedAt,
-        @RequestParam(value = "endCreatedAt", required = false) Date endCreatedAt,
-        @RequestParam(value = "status", required = false) Byte status
-        ) {
+            @RequestParam(value = "id", required = false) Integer id,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "isDynamic", required = false) Byte isDynamic,
+            @RequestParam(value = "startCreatedAt", required = false) Date startCreatedAt,
+            @RequestParam(value = "endCreatedAt", required = false) Date endCreatedAt,
+            @RequestParam(value = "status", required = false) Byte status
+    ) {
         return taskBiz.selectByParamsForList(id, name, isDynamic, startCreatedAt, endCreatedAt, status);
-     }
+    }
 
 }

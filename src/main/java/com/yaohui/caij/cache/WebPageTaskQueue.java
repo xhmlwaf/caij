@@ -10,19 +10,19 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 public class WebPageTaskQueue {
 
-  public static final Logger logger = LoggerFactory.getLogger(WebPageTaskQueue.class);
+    public static final Logger logger = LoggerFactory.getLogger(WebPageTaskQueue.class);
 
-  private static final int MAX_QUEUE_SIZE = 1000;
+    private static final int MAX_QUEUE_SIZE = 1000;
 
-  public static final BlockingQueue<WebPageConfig> webPageConfigQueue = new LinkedBlockingDeque<>(MAX_QUEUE_SIZE);
+    public static final BlockingQueue<WebPageConfig> webPageConfigQueue = new LinkedBlockingDeque<>(MAX_QUEUE_SIZE);
 
-  public static void put(WebPageConfig webPageConfig) {
-    try {
-      webPageConfigQueue.put(webPageConfig);
-    } catch (InterruptedException e) {
-      logger.error("放入队列出错.", e);
+    public static void put(WebPageConfig webPageConfig) {
+        try {
+            webPageConfigQueue.put(webPageConfig);
+        } catch (InterruptedException e) {
+            logger.error("放入队列出错.", e);
+        }
     }
-  }
 
 
 }

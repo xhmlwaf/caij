@@ -5,7 +5,8 @@ package com.yaohui.caij.constant.model;
  */
 public class ParamsElement {
 
-    public ParamsElement(){}
+    public ParamsElement() {
+    }
 
     public ParamsElement(String xpath, String contentType, String attrName, String regex) {
         this.xpath = xpath;

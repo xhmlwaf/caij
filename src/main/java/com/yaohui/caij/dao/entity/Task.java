@@ -2,6 +2,7 @@ package com.yaohui.caij.dao.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.*;
 
 public class Task implements Serializable {
@@ -258,15 +259,15 @@ public class Task implements Serializable {
         }
         Task other = (Task) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getTargetUrl() == null ? other.getTargetUrl() == null : this.getTargetUrl().equals(other.getTargetUrl()))
-            && (this.getEntityListXpath() == null ? other.getEntityListXpath() == null : this.getEntityListXpath().equals(other.getEntityListXpath()))
-            && (this.getParamsRuleMap() == null ? other.getParamsRuleMap() == null : this.getParamsRuleMap().equals(other.getParamsRuleMap()))
-            && (this.getDetailPageConfig() == null ? other.getDetailPageConfig() == null : this.getDetailPageConfig().equals(other.getDetailPageConfig()))
-            && (this.getDetailParamsRuleMap() == null ? other.getDetailParamsRuleMap() == null : this.getDetailParamsRuleMap().equals(other.getDetailParamsRuleMap()))
-            && (this.getIsDynamic() == null ? other.getIsDynamic() == null : this.getIsDynamic().equals(other.getIsDynamic()))
-            && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+                && (this.getTargetUrl() == null ? other.getTargetUrl() == null : this.getTargetUrl().equals(other.getTargetUrl()))
+                && (this.getEntityListXpath() == null ? other.getEntityListXpath() == null : this.getEntityListXpath().equals(other.getEntityListXpath()))
+                && (this.getParamsRuleMap() == null ? other.getParamsRuleMap() == null : this.getParamsRuleMap().equals(other.getParamsRuleMap()))
+                && (this.getDetailPageConfig() == null ? other.getDetailPageConfig() == null : this.getDetailPageConfig().equals(other.getDetailPageConfig()))
+                && (this.getDetailParamsRuleMap() == null ? other.getDetailParamsRuleMap() == null : this.getDetailParamsRuleMap().equals(other.getDetailParamsRuleMap()))
+                && (this.getIsDynamic() == null ? other.getIsDynamic() == null : this.getIsDynamic().equals(other.getIsDynamic()))
+                && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
     }
 
     @Override

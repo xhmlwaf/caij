@@ -10,20 +10,20 @@ import java.util.List;
 
 public class JsoupUtil {
 
-  public static final Logger logger = LoggerFactory.getLogger(JsoupUtil.class);
+    public static final Logger logger = LoggerFactory.getLogger(JsoupUtil.class);
 
-  /**
-   * 根据网页内容返回Document对象
-   */
-  public static Document getDocumentFromContent(String html) {
-    return Jsoup.parse(html);
-  }
+    /**
+     * 根据网页内容返回Document对象
+     */
+    public static Document getDocumentFromContent(String html) {
+        return Jsoup.parse(html);
+    }
 
-  /**
-   * 获取
-   */
-  public static List<Element> selectElements(Element e, String rule) {
-    return e.select(rule);
-  }
+    /**
+     * 获取
+     */
+    public static List<Element> selectElements(Element e, String rule) {
+        return e.select(rule);
+    }
 
 }

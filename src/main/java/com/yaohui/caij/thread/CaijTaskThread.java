@@ -9,22 +9,22 @@ import java.util.Map;
 
 public class CaijTaskThread implements Runnable {
 
-  @Override
-  public void run() {
+    @Override
+    public void run() {
 
-    try {
-      while (true) {
-        WebPageConfig webPageConfig = WebPageTaskQueue.webPageConfigQueue.take();
-        if (webPageConfig != null) {
-          List<Map<String, Object>> resultMap = CaijUtils.dealAndReturn(webPageConfig);
+        try {
+            while (true) {
+                WebPageConfig webPageConfig = WebPageTaskQueue.webPageConfigQueue.take();
+                if (webPageConfig != null) {
+                    List<Map<String, Object>> resultMap = CaijUtils.dealAndReturn(webPageConfig);
+                }
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-      }
 
-    } catch (InterruptedException e) {
-      e.printStackTrace();
     }
-
-  }
 
 
 }

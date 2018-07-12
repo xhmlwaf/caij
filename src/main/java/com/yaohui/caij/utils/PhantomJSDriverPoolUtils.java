@@ -12,30 +12,30 @@ import org.springframework.stereotype.Component;
 public class PhantomJSDriverPoolUtils {
 
 
-  private static final int MAX_TOTAL = 5;
-  private static final int MAX_IDLE = 5;
-  private static final int MIN_IDLE = 5;
-  private static final int MAX_WAIT_MILLIS = -1;
+    private static final int MAX_TOTAL = 5;
+    private static final int MAX_IDLE = 5;
+    private static final int MIN_IDLE = 5;
+    private static final int MAX_WAIT_MILLIS = -1;
 
-  private static GenericObjectPool initPool() {
-    GenericObjectPool pool = new GenericObjectPool(new PhantomJSDriverFactory(), genericObjectPoolConfig());
-    pool.setAbandonedConfig(abandonedConfig());
-    pool.setTimeBetweenEvictionRunsMillis(5000); //5秒运行一次维护任务
-    return pool;
-  }
+    private static GenericObjectPool initPool() {
+        GenericObjectPool pool = new GenericObjectPool(new PhantomJSDriverFactory(), genericObjectPoolConfig());
+        pool.setAbandonedConfig(abandonedConfig());
+        pool.setTimeBetweenEvictionRunsMillis(5000); //5秒运行一次维护任务
+        return pool;
+    }
 
-  /**
-   * 对象连接池配置
-   */
-  private static GenericObjectPoolConfig genericObjectPoolConfig() {
+    /**
+     * 对象连接池配置
+     */
+    private static GenericObjectPoolConfig genericObjectPoolConfig() {
 
-    GenericObjectPoolConfig genericObjectPoolConfig = new GenericObjectPoolConfig();
-    genericObjectPoolConfig.setMaxTotal(MAX_TOTAL); //链接池中最大连接数
-    genericObjectPoolConfig.setMaxIdle(MAX_IDLE);//链接池中最大空闲的连接数
-    genericObjectPoolConfig.setMinIdle(MIN_IDLE);//连接池中最少空闲的连接数
+        GenericObjectPoolConfig genericObjectPoolConfig = new GenericObjectPoolConfig();
+        genericObjectPoolConfig.setMaxTotal(MAX_TOTAL); //链接池中最大连接数
+        genericObjectPoolConfig.setMaxIdle(MAX_IDLE);//链接池中最大空闲的连接数
+        genericObjectPoolConfig.setMinIdle(MIN_IDLE);//连接池中最少空闲的连接数
 
-    genericObjectPoolConfig.setMaxWaitMillis(MAX_WAIT_MILLIS); //当连接池资源耗尽时，等待时间，超出则抛异常，默认为-1即永不超时
-    genericObjectPoolConfig.setBlockWhenExhausted(true); //当这个值为true的时候，maxWaitMillis参数才能生效。为false的时候，当连接池没资源，则立马抛异常。默认为true
+        genericObjectPoolConfig.setMaxWaitMillis(MAX_WAIT_MILLIS); //当连接池资源耗尽时，等待时间，超出则抛异常，默认为-1即永不超时
+        genericObjectPoolConfig.setBlockWhenExhausted(true); //当这个值为true的时候，maxWaitMillis参数才能生效。为false的时候，当连接池没资源，则立马抛异常。默认为true
 
 //    基本参数
 //            lifo
@@ -67,26 +67,27 @@ public class PhantomJSDriverPoolUtils {
 //    evictionPolicyClassName
 //    evict策略的类名，默认为org.apache.commons.pool2.impl.DefaultEvictionPolicy
 
-    return genericObjectPoolConfig;
-  }
+        return genericObjectPoolConfig;
+    }
 
 
-  /**
-   * 设置了抛弃时间以后还需要打开泄漏清理才会生效。泄漏判断的开启可以通过两种方式：
-   *
-   * 从对象池中获取对象的时候进行清理 如果当前对象池中少于2个idle状态的对象或者 active数量>最大对象数-3 的时候，在borrow对象的时候启动泄漏清理。通过
-   * AbandonedConfig.setRemoveAbandonedOnBorrow 为 true 进行开启。
-   *
-   * 启动定时任务进行清理 AbandonedConfig.setRemoveAbandonedOnMaintenance 设置为 true
-   * 以后，在维护任务运行的时候会进行泄漏对象的清理，可以通过 GenericObjectPool.setTimeBetweenEvictionRunsMillis 设置维护任务执行的时间间隔。
-   */
-  private static AbandonedConfig abandonedConfig() {
-    AbandonedConfig abandonedConfig = new AbandonedConfig();
-    abandonedConfig.setRemoveAbandonedOnMaintenance(true); //在Maintenance的时候检查是否有泄漏
-    abandonedConfig.setRemoveAbandonedOnBorrow(true); //borrow 的时候检查泄漏
-    abandonedConfig.setRemoveAbandonedTimeout(10); //如果一个对象borrow之后10秒还没有返还给pool，认为是泄漏的对象
-    return abandonedConfig;
-  }
+    /**
+     * 设置了抛弃时间以后还需要打开泄漏清理才会生效。泄漏判断的开启可以通过两种方式：
+     *
+     * 从对象池中获取对象的时候进行清理 如果当前对象池中少于2个idle状态的对象或者 active数量>最大对象数-3 的时候，在borrow对象的时候启动泄漏清理。通过
+     * AbandonedConfig.setRemoveAbandonedOnBorrow 为 true 进行开启。
+     *
+     * 启动定时任务进行清理 AbandonedConfig.setRemoveAbandonedOnMaintenance 设置为 true
+     * 以后，在维护任务运行的时候会进行泄漏对象的清理，可以通过 GenericObjectPool.setTimeBetweenEvictionRunsMillis
+     * 设置维护任务执行的时间间隔。
+     */
+    private static AbandonedConfig abandonedConfig() {
+        AbandonedConfig abandonedConfig = new AbandonedConfig();
+        abandonedConfig.setRemoveAbandonedOnMaintenance(true); //在Maintenance的时候检查是否有泄漏
+        abandonedConfig.setRemoveAbandonedOnBorrow(true); //borrow 的时候检查泄漏
+        abandonedConfig.setRemoveAbandonedTimeout(10); //如果一个对象borrow之后10秒还没有返还给pool，认为是泄漏的对象
+        return abandonedConfig;
+    }
 
 
 }

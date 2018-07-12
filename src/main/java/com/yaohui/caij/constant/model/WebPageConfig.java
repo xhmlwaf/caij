@@ -25,7 +25,7 @@ public class WebPageConfig {
     /**
      * 参数名：参数规则
      */
-    private Map<String,ParamsElement> paramsRuleMap;
+    private Map<String, ParamsElement> paramsRuleMap;
 
     /**
      * 详情页规则
@@ -35,7 +35,7 @@ public class WebPageConfig {
     /**
      * 详情页面其他参数
      */
-    private Map<String,ParamsElement> otherParamsRuleMap;
+    private Map<String, ParamsElement> otherParamsRuleMap;
 
     /**
      * 动态网站
@@ -51,8 +51,8 @@ public class WebPageConfig {
 
     public void setTargetUrl(String targetUrl) {
         this.targetUrl = targetUrl;
-        int index = targetUrl.indexOf("/",HTTP_TEMP.length());
-        this.homeUrl = targetUrl.substring(0,index);
+        int index = targetUrl.indexOf("/", HTTP_TEMP.length());
+        this.homeUrl = targetUrl.substring(0, index);
     }
 
     public String getHomeUrl() {

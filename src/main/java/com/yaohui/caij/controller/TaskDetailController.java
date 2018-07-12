@@ -77,33 +77,33 @@ public class TaskDetailController {
     @PostMapping("/taskDetail/batch")
     @ApiOperation(value = "根据ID列表批量查询记录")
     Result<List<TaskDetailQueryRspDTO>> selectByPrimaryKeyList(@Valid @RequestBody List<Integer> ids) {
-    return taskDetailBiz.selectByPrimaryKeyList(ids);
+        return taskDetailBiz.selectByPrimaryKeyList(ids);
     }
 
     /**
-    * 根据参数分页查询
-    */
+     * 根据参数分页查询
+     */
     @GetMapping("/taskDetail")
     @ApiOperation(value = "参数查询分页数据")
     PagedResult<TaskDetailQueryRspDTO> selectByParamsForPage(
-        @RequestParam(value = "id", required = false) Integer id,
-        @RequestParam(value = "taskId", required = false) Integer taskId,
-        @RequestParam(value = "pageNo", required = false, defaultValue = "1") @Min(value = 1, message = "最小值1") int pageNo,
-        @RequestParam(value = "pageSize", required = false, defaultValue = "1") @Min(value = 1, message = "最小值1") int pageSize,
-        @RequestParam(value = "pageSize", required = false) String orderByClause) {
-        return taskDetailBiz.selectByParamsForPage(id, taskId , pageNo, pageSize, orderByClause);
+            @RequestParam(value = "id", required = false) Integer id,
+            @RequestParam(value = "taskId", required = false) Integer taskId,
+            @RequestParam(value = "pageNo", required = false, defaultValue = "1") @Min(value = 1, message = "最小值1") int pageNo,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "1") @Min(value = 1, message = "最小值1") int pageSize,
+            @RequestParam(value = "pageSize", required = false) String orderByClause) {
+        return taskDetailBiz.selectByParamsForPage(id, taskId, pageNo, pageSize, orderByClause);
     }
 
     /**
-    * 根据参数列表查询
-    */
+     * 根据参数列表查询
+     */
     @GetMapping("/taskDetail/all")
     @ApiOperation(value = "参数查询全量数据")
     Result<List<TaskDetailQueryRspDTO>> selectByParamsForList(
-        @RequestParam(value = "id", required = false) Integer id,
-        @RequestParam(value = "taskId", required = false) Integer taskId
-        ) {
+            @RequestParam(value = "id", required = false) Integer id,
+            @RequestParam(value = "taskId", required = false) Integer taskId
+    ) {
         return taskDetailBiz.selectByParamsForList(id, taskId);
-     }
+    }
 
 }

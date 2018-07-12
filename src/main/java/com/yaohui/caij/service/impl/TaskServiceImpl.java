@@ -45,7 +45,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> selectByPrimaryKeyList(List<Integer> ids) {
         Example example = new Example(Task.class);
-        example.createCriteria().andIn("id",ids);
+        example.createCriteria().andIn("id", ids);
         return taskMapper.selectByExample(example);
     }
 
@@ -54,23 +54,23 @@ public class TaskServiceImpl implements TaskService {
         Example example = new Example(Task.class);
         Example.Criteria criteria = example.createCriteria();
 
-        PageHelper.startPage(pageNo,pageSize);
+        PageHelper.startPage(pageNo, pageSize);
         example.setOrderByClause(orderByClause);
 
         if (record.getId() != null) {
-            criteria.andEqualTo("id",record.getId());
+            criteria.andEqualTo("id", record.getId());
         }
         if (record.getName() != null) {
-            criteria.andLike("name","%" + record.getName() + "%");
+            criteria.andLike("name", "%" + record.getName() + "%");
         }
         if (record.getIsDynamic() != null) {
-            criteria.andEqualTo("isDynamic",record.getIsDynamic());
+            criteria.andEqualTo("isDynamic", record.getIsDynamic());
         }
         if (record.getCreatedAt() != null) {
-            criteria.andEqualTo("createdAt",record.getCreatedAt());
+            criteria.andEqualTo("createdAt", record.getCreatedAt());
         }
         if (record.getStatus() != null) {
-            criteria.andEqualTo("status",record.getStatus());
+            criteria.andEqualTo("status", record.getStatus());
         }
 
         List<Task> list = taskMapper.selectByExample(example);
@@ -79,7 +79,7 @@ public class TaskServiceImpl implements TaskService {
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
         page.setResult(list);
-        page.setTotalCount((int)pageInfo.getTotal());
+        page.setTotalCount((int) pageInfo.getTotal());
         return page;
     }
 
@@ -89,19 +89,19 @@ public class TaskServiceImpl implements TaskService {
         Example.Criteria criteria = example.createCriteria();
 
         if (record.getId() != null) {
-            criteria.andEqualTo("id",record.getId());
+            criteria.andEqualTo("id", record.getId());
         }
         if (record.getName() != null) {
-            criteria.andLike("name","%" + record.getName() + "%");
+            criteria.andLike("name", "%" + record.getName() + "%");
         }
         if (record.getIsDynamic() != null) {
-            criteria.andEqualTo("isDynamic",record.getIsDynamic());
+            criteria.andEqualTo("isDynamic", record.getIsDynamic());
         }
         if (record.getCreatedAt() != null) {
-            criteria.andEqualTo("createdAt",record.getCreatedAt());
+            criteria.andEqualTo("createdAt", record.getCreatedAt());
         }
         if (record.getStatus() != null) {
-            criteria.andEqualTo("status",record.getStatus());
+            criteria.andEqualTo("status", record.getStatus());
         }
 
         return taskMapper.selectByExample(example);
@@ -112,17 +112,17 @@ public class TaskServiceImpl implements TaskService {
         Example example = new Example(Task.class);
         Example.Criteria criteria = example.createCriteria();
 
-        PageHelper.startPage(pageNo,pageSize);
+        PageHelper.startPage(pageNo, pageSize);
         example.setOrderByClause(orderByClause);
 
         if (id != null) {
-             criteria.andEqualTo("id",id);
+            criteria.andEqualTo("id", id);
         }
         if (name != null) {
-            criteria.andLike("name","%" + name + "%");
+            criteria.andLike("name", "%" + name + "%");
         }
         if (isDynamic != null) {
-             criteria.andEqualTo("isDynamic",isDynamic);
+            criteria.andEqualTo("isDynamic", isDynamic);
         }
         if (startCreatedAt != null) {
             criteria.andGreaterThanOrEqualTo("createdAt", startCreatedAt);
@@ -131,7 +131,7 @@ public class TaskServiceImpl implements TaskService {
             criteria.andLessThanOrEqualTo("createdAt", startCreatedAt);
         }
         if (status != null) {
-             criteria.andEqualTo("status",status);
+            criteria.andEqualTo("status", status);
         }
 
         List<Task> list = taskMapper.selectByExample(example);
@@ -140,7 +140,7 @@ public class TaskServiceImpl implements TaskService {
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
         page.setResult(list);
-        page.setTotalCount((int)pageInfo.getTotal());
+        page.setTotalCount((int) pageInfo.getTotal());
         return page;
     }
 
@@ -150,13 +150,13 @@ public class TaskServiceImpl implements TaskService {
         Example.Criteria criteria = example.createCriteria();
 
         if (id != null) {
-            criteria.andEqualTo("id",id);
+            criteria.andEqualTo("id", id);
         }
         if (name != null) {
-            criteria.andLike("name","%" + name + "%");
+            criteria.andLike("name", "%" + name + "%");
         }
         if (isDynamic != null) {
-            criteria.andEqualTo("isDynamic",isDynamic);
+            criteria.andEqualTo("isDynamic", isDynamic);
         }
         if (startCreatedAt != null) {
             criteria.andGreaterThanOrEqualTo("createdAt", startCreatedAt);
@@ -165,10 +165,10 @@ public class TaskServiceImpl implements TaskService {
             criteria.andLessThanOrEqualTo("createdAt", startCreatedAt);
         }
         if (status != null) {
-            criteria.andEqualTo("status",status);
+            criteria.andEqualTo("status", status);
         }
 
         return taskMapper.selectByExample(example);
     }
 
- }
+}

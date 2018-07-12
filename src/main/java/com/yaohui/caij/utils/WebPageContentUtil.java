@@ -10,45 +10,45 @@ import java.net.URL;
 
 public class WebPageContentUtil {
 
-  public static final Logger logger = LoggerFactory.getLogger(WebPageContentUtil.class);
+    public static final Logger logger = LoggerFactory.getLogger(WebPageContentUtil.class);
 
-  /**
-   * 根据URL地址获取网页内容
-   */
-  private static String getSourceContent(String urlString) throws Exception {
-    try {
-      StringBuffer html = new StringBuffer();
-      URL url = new URL(urlString);
-      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-      InputStreamReader isr = new InputStreamReader(conn.getInputStream());
-      BufferedReader br = new BufferedReader(isr);
-      String temp;
-      while ((temp = br.readLine()) != null) {
-        html.append(temp).append("\n");
-      }
-      br.close();
-      isr.close();
-      return html.toString();
-    } catch (Exception e) {
-      logger.error("获取网页内容异常.url:" + urlString, e);
-      throw new RuntimeException(e);
+    /**
+     * 根据URL地址获取网页内容
+     */
+    private static String getSourceContent(String urlString) throws Exception {
+        try {
+            StringBuffer html = new StringBuffer();
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            InputStreamReader isr = new InputStreamReader(conn.getInputStream());
+            BufferedReader br = new BufferedReader(isr);
+            String temp;
+            while ((temp = br.readLine()) != null) {
+                html.append(temp).append("\n");
+            }
+            br.close();
+            isr.close();
+            return html.toString();
+        } catch (Exception e) {
+            logger.error("获取网页内容异常.url:" + urlString, e);
+            throw new RuntimeException(e);
+        }
     }
-  }
 
-  private static String getDynamicContent(String urlString) throws Exception {
-    return null;
-  }
-
-  public static String getWebPageContent(String url, boolean dynamic) {
-    try {
-      if (dynamic) {
-        return getDynamicContent(url);
-      } else {
-        return getSourceContent(url);
-      }
-    } catch (Exception e) {
-      return null;
+    private static String getDynamicContent(String urlString) throws Exception {
+        return null;
     }
-  }
+
+    public static String getWebPageContent(String url, boolean dynamic) {
+        try {
+            if (dynamic) {
+                return getDynamicContent(url);
+            } else {
+                return getSourceContent(url);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }

@@ -11,6 +11,7 @@ public interface TaskDetailService {
 
     /**
      * 插入记录
+     *
      * @param record
      * @return
      */
@@ -18,6 +19,7 @@ public interface TaskDetailService {
 
     /**
      * 根据主键删除
+     *
      * @param id
      * @return
      */
@@ -25,6 +27,7 @@ public interface TaskDetailService {
 
     /**
      * 根据主键更新
+     *
      * @param record
      * @return
      */
@@ -32,6 +35,7 @@ public interface TaskDetailService {
 
     /**
      * 根据主键查询
+     *
      * @param id
      * @return
      */
@@ -39,45 +43,50 @@ public interface TaskDetailService {
 
     /**
      * 根据ID列表查询
+     *
      * @param ids
      * @return
      */
     List<TaskDetail> selectByPrimaryKeyList(List<Integer> ids);
 
     /**
-    * 分页查询
-    * @param record
-    * @param pageNo
-    * @param pageSize
-    * @param orderByClause
-    * @return
-    */
+     * 分页查询
+     *
+     * @param record
+     * @param pageNo
+     * @param pageSize
+     * @param orderByClause
+     * @return
+     */
     Page<TaskDetail> selectByRecordForPage(TaskDetail record, int pageNo, int pageSize, String orderByClause);
 
     /**
-    * 列表查询
-    * @param record
-    * @return
-    */
-	List<TaskDetail> selectByRecordForList(TaskDetail record);
+     * 列表查询
+     *
+     * @param record
+     * @return
+     */
+    List<TaskDetail> selectByRecordForList(TaskDetail record);
 
     /**
-    * 根据参数分页查询
-    * @param id
-    * @param taskId
-    * @param pageNo
-    * @param pageSize
-    * @param orderByClause
-    * @return
-    */
+     * 根据参数分页查询
+     *
+     * @param id
+     * @param taskId
+     * @param pageNo
+     * @param pageSize
+     * @param orderByClause
+     * @return
+     */
     Page<TaskDetail> selectByParamsForPage(Integer id, Integer taskId, int pageNo, int pageSize, String orderByClause);
 
     /**
-    * 根据参数列表查询
-    * @param id
-    * @param taskId
-    * @return
-    */
-    List<TaskDetail> selectByParamsForList(Integer id, Integer taskId );
+     * 根据参数列表查询
+     *
+     * @param id
+     * @param taskId
+     * @return
+     */
+    List<TaskDetail> selectByParamsForList(Integer id, Integer taskId);
 
 }

@@ -6,14 +6,14 @@ import org.apache.commons.pool2.impl.DefaultPooledObject;
 
 public class PhantomJSDriverFactory extends BasePooledObjectFactory {
 
-  @Override
-  public Object create() throws Exception {
-    return null;
-  }
+    @Override
+    public Object create() throws Exception {
+        return null;
+    }
 
-  @Override
-  public PooledObject wrap(Object o) {
-    return new DefaultPooledObject(o);
-  }
+    @Override
+    public PooledObject wrap(Object o) {
+        return new DefaultPooledObject(o);
+    }
 
 }

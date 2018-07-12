@@ -45,7 +45,7 @@ public class TaskDetailServiceImpl implements TaskDetailService {
     @Override
     public List<TaskDetail> selectByPrimaryKeyList(List<Integer> ids) {
         Example example = new Example(TaskDetail.class);
-        example.createCriteria().andIn("id",ids);
+        example.createCriteria().andIn("id", ids);
         return taskDetailMapper.selectByExample(example);
     }
 
@@ -54,14 +54,14 @@ public class TaskDetailServiceImpl implements TaskDetailService {
         Example example = new Example(TaskDetail.class);
         Example.Criteria criteria = example.createCriteria();
 
-        PageHelper.startPage(pageNo,pageSize);
+        PageHelper.startPage(pageNo, pageSize);
         example.setOrderByClause(orderByClause);
 
         if (record.getId() != null) {
-            criteria.andEqualTo("id",record.getId());
+            criteria.andEqualTo("id", record.getId());
         }
         if (record.getTaskId() != null) {
-            criteria.andEqualTo("taskId",record.getTaskId());
+            criteria.andEqualTo("taskId", record.getTaskId());
         }
 
         List<TaskDetail> list = taskDetailMapper.selectByExample(example);
@@ -70,7 +70,7 @@ public class TaskDetailServiceImpl implements TaskDetailService {
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
         page.setResult(list);
-        page.setTotalCount((int)pageInfo.getTotal());
+        page.setTotalCount((int) pageInfo.getTotal());
         return page;
     }
 
@@ -80,10 +80,10 @@ public class TaskDetailServiceImpl implements TaskDetailService {
         Example.Criteria criteria = example.createCriteria();
 
         if (record.getId() != null) {
-            criteria.andEqualTo("id",record.getId());
+            criteria.andEqualTo("id", record.getId());
         }
         if (record.getTaskId() != null) {
-            criteria.andEqualTo("taskId",record.getTaskId());
+            criteria.andEqualTo("taskId", record.getTaskId());
         }
 
         return taskDetailMapper.selectByExample(example);
@@ -94,14 +94,14 @@ public class TaskDetailServiceImpl implements TaskDetailService {
         Example example = new Example(TaskDetail.class);
         Example.Criteria criteria = example.createCriteria();
 
-        PageHelper.startPage(pageNo,pageSize);
+        PageHelper.startPage(pageNo, pageSize);
         example.setOrderByClause(orderByClause);
 
         if (id != null) {
-             criteria.andEqualTo("id",id);
+            criteria.andEqualTo("id", id);
         }
         if (taskId != null) {
-             criteria.andEqualTo("taskId",taskId);
+            criteria.andEqualTo("taskId", taskId);
         }
 
         List<TaskDetail> list = taskDetailMapper.selectByExample(example);
@@ -110,7 +110,7 @@ public class TaskDetailServiceImpl implements TaskDetailService {
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
         page.setResult(list);
-        page.setTotalCount((int)pageInfo.getTotal());
+        page.setTotalCount((int) pageInfo.getTotal());
         return page;
     }
 
@@ -120,13 +120,13 @@ public class TaskDetailServiceImpl implements TaskDetailService {
         Example.Criteria criteria = example.createCriteria();
 
         if (id != null) {
-            criteria.andEqualTo("id",id);
+            criteria.andEqualTo("id", id);
         }
         if (taskId != null) {
-            criteria.andEqualTo("taskId",taskId);
+            criteria.andEqualTo("taskId", taskId);
         }
 
         return taskDetailMapper.selectByExample(example);
     }
 
- }
+}

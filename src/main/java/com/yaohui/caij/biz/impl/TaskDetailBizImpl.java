@@ -15,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -48,9 +46,9 @@ public class TaskDetailBizImpl implements TaskDetailBiz {
 
     @Override
     public Result<TaskDetailQueryRspDTO> selectByPrimaryKey(Integer id) {
-    TaskDetail taskDetail = taskDetailService.selectByPrimaryKey(id);
-    TaskDetailQueryRspDTO dto = do2TaskDetailQueryRspDTO(taskDetail);
-    return Result.success(dto);
+        TaskDetail taskDetail = taskDetailService.selectByPrimaryKey(id);
+        TaskDetailQueryRspDTO dto = do2TaskDetailQueryRspDTO(taskDetail);
+        return Result.success(dto);
     }
 
     @Override
@@ -94,7 +92,7 @@ public class TaskDetailBizImpl implements TaskDetailBiz {
             for (TaskDetail e : taskDetailList) {
                 TaskDetailQueryRspDTO dto = do2TaskDetailQueryRspDTO(e);
                 dtoList.add(dto);
-             }
+            }
         }
         return Result.success(dtoList);
     }
