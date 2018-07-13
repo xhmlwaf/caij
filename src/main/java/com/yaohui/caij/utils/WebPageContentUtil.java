@@ -1,5 +1,6 @@
 package com.yaohui.caij.utils;
 
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +37,12 @@ public class WebPageContentUtil {
     }
 
     private static String getDynamicContent(String urlString) throws Exception {
-        return null;
+        ChromeDriver chromeDriver = (ChromeDriver)ChromeDriverPoolUtils.pool.borrowObject();
+        chromeDriver.get("about:blank");
+        chromeDriver.get(urlString);
+        String source = chromeDriver.getPageSource();
+        ChromeDriverPoolUtils.pool.returnObject(chromeDriver);
+        return source;
     }
 
     public static String getWebPageContent(String url, boolean dynamic) {

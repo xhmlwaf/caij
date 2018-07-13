@@ -4,11 +4,11 @@ import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 
-public class PhantomJSDriverFactory extends BasePooledObjectFactory {
+public class ChromeDriverFactory extends BasePooledObjectFactory {
 
     @Override
     public Object create() throws Exception {
-        return null;
+        return ChromeDriverUtils.getDriver();
     }
 
     @Override

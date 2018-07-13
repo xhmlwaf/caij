@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * 对象池管理
  */
 @Component
-public class PhantomJSDriverPoolUtils {
+public class ChromeDriverPoolUtils {
 
 
     private static final int MAX_TOTAL = 5;
@@ -17,12 +17,14 @@ public class PhantomJSDriverPoolUtils {
     private static final int MIN_IDLE = 5;
     private static final int MAX_WAIT_MILLIS = -1;
 
-    private static GenericObjectPool initPool() {
-        GenericObjectPool pool = new GenericObjectPool(new PhantomJSDriverFactory(), genericObjectPoolConfig());
+    public static GenericObjectPool pool = null;
+
+    static {
+        pool = new GenericObjectPool(new ChromeDriverFactory(), genericObjectPoolConfig());
         pool.setAbandonedConfig(abandonedConfig());
         pool.setTimeBetweenEvictionRunsMillis(5000); //5秒运行一次维护任务
-        return pool;
     }
+
 
     /**
      * 对象连接池配置
