@@ -14,7 +14,7 @@ public class WebPageTaskQueue {
 
     private static final int MAX_QUEUE_SIZE = 1000;
 
-    public static final BlockingQueue<WebPageConfig> webPageConfigQueue = new LinkedBlockingDeque<>(MAX_QUEUE_SIZE);
+    private static final BlockingQueue<WebPageConfig> webPageConfigQueue = new LinkedBlockingDeque<>(MAX_QUEUE_SIZE);
 
     public static void put(WebPageConfig webPageConfig) {
         try {
@@ -22,6 +22,16 @@ public class WebPageTaskQueue {
         } catch (InterruptedException e) {
             logger.error("放入队列出错.", e);
         }
+    }
+
+    public static WebPageConfig take(){
+        WebPageConfig webPageConfig = null;
+        try {
+            webPageConfig = webPageConfigQueue.take();
+        } catch (InterruptedException e) {
+            logger.error("从队列获取发生异常.",e);
+        }
+        return webPageConfig;
     }
 
 

@@ -4,27 +4,32 @@ import com.yaohui.caij.cache.WebPageTaskQueue;
 import com.yaohui.caij.constant.model.WebPageConfig;
 import com.yaohui.caij.utils.CaijUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.Map;
 
 public class CaijTaskThread implements Runnable {
 
-    @Override
-    public void run() {
+  public static final Logger logger = LoggerFactory.getLogger(CaijTaskThread.class);
 
-        try {
-            while (true) {
-                WebPageConfig webPageConfig = WebPageTaskQueue.webPageConfigQueue.take();
-                if (webPageConfig != null) {
-                    List<Map<String, Object>> resultMap = CaijUtils.dealAndReturn(webPageConfig);
-                }
-            }
+  @Override
+  public void run() {
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    try {
+      while (true) {
+        WebPageConfig webPageConfig = WebPageTaskQueue.take();
+        if (webPageConfig != null) {
+          List<Map<String, Object>> resultMap = CaijUtils.dealAndReturn(webPageConfig);
         }
+      }
 
+    } catch (Exception e) {
+      logger.error("抓取数据异常.", e);
     }
+
+  }
 
 
 }
