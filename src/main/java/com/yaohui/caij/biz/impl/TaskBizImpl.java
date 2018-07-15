@@ -1,9 +1,13 @@
 package com.yaohui.caij.biz.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.yaohui.caij.biz.TaskBiz;
+import com.yaohui.caij.constant.Constants;
 import com.yaohui.caij.constant.Page;
 import com.yaohui.caij.constant.PagedResult;
 import com.yaohui.caij.constant.Result;
+import com.yaohui.caij.constant.model.ParamsElement;
+import com.yaohui.caij.constant.model.WebPageConfig;
 import com.yaohui.caij.controller.request.TaskInsertReqDTO;
 import com.yaohui.caij.controller.request.TaskUpdateReqDTO;
 import com.yaohui.caij.controller.response.TaskQueryRspDTO;
@@ -16,9 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TaskBizImpl implements TaskBiz {
@@ -30,6 +32,21 @@ public class TaskBizImpl implements TaskBiz {
     public Result insert(TaskInsertReqDTO dto) {
         Task task = taskInsertReqDTO2DO(dto);
         taskService.insert(task);
+        return Result.success(null);
+    }
+
+    @Override
+    public Result insertBatch(List<TaskInsertReqDTO> dtoList) {
+        List<Task> taskList = new ArrayList<>();
+        if (CollectionUtils.isEmpty(dtoList)) {
+            return Result.success(null);
+        }
+        for (int i = 0; i < dtoList.size(); i++) {
+            Task task = taskInsertReqDTO2DO(dtoList.get(i));
+            taskList.add(task);
+        }
+
+        taskService.insertBatch(taskList);
         return Result.success(null);
     }
 
@@ -67,8 +84,8 @@ public class TaskBizImpl implements TaskBiz {
     }
 
     @Override
-    public PagedResult<TaskQueryRspDTO> selectByParamsForPage(Integer id, String name, Byte isDynamic, Date startCreatedAt, Date endCreatedAt, Byte status, int pageNo, int pageSize, String orderByClause) {
-        Page<Task> taskPage = taskService.selectByParamsForPage(id, name, isDynamic, startCreatedAt, endCreatedAt, status, pageNo, pageSize, orderByClause);
+    public PagedResult<TaskQueryRspDTO> selectByParamsForPage(Integer id, String name, Byte dynamic, Date startCreatedAt, Date endCreatedAt, Byte status, int pageNo, int pageSize, String orderByClause) {
+        Page<Task> taskPage = taskService.selectByParamsForPage(id, name, dynamic, startCreatedAt, endCreatedAt, status, pageNo, pageSize, orderByClause);
         List<Task> taskList = taskPage.getResult();
         List<TaskQueryRspDTO> dtoList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(taskList)) {
@@ -87,8 +104,8 @@ public class TaskBizImpl implements TaskBiz {
     }
 
     @Override
-    public Result<List<TaskQueryRspDTO>> selectByParamsForList(Integer id, String name, Byte isDynamic, Date startCreatedAt, Date endCreatedAt, Byte status) {
-        List<Task> taskList = taskService.selectByParamsForList(id, name, isDynamic, startCreatedAt, endCreatedAt, status);
+    public Result<List<TaskQueryRspDTO>> selectByParamsForList(Integer id, String name, Byte dynamic, Date startCreatedAt, Date endCreatedAt, Byte status) {
+        List<Task> taskList = taskService.selectByParamsForList(id, name, dynamic, startCreatedAt, endCreatedAt, status);
         List<TaskQueryRspDTO> dtoList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(taskList)) {
             for (Task e : taskList) {
@@ -97,6 +114,31 @@ public class TaskBizImpl implements TaskBiz {
             }
         }
         return Result.success(dtoList);
+    }
+
+    @Override
+    public Result startTask(int id) {
+        Task task = taskService.selectByPrimaryKey(id);
+        WebPageConfig webPageConfig = new WebPageConfig();
+        webPageConfig.setTargetUrl(task.getTargetUrl());
+        //webPageConfig.setDetailPageConfig();
+        webPageConfig.setDynamic(task.getDynamic() == Constants.DYNAMIC_TRUE);
+        webPageConfig.setEntityListXpath(task.getEntityListXpath());
+        webPageConfig.setHomeUrl(task.getHomeUrl());
+        //webPageConfig.setParamsRuleMap();
+
+        String paramsRuleStr = task.getParamsRuleMap();
+
+
+
+
+        return null;
+    }
+
+    private Map<String,ParamsElement> parse(String str){
+
+        JSONObject jsonObject = JSONObject.parseObject(str);
+        Set<Map.Entry<String, Object>> entrySet = jsonObject.entrySet();
     }
 
     private Task taskInsertReqDTO2DO(TaskInsertReqDTO dto) {

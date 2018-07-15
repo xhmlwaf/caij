@@ -11,64 +11,70 @@ import io.swagger.annotations.ApiModelProperty;
 public class TaskQueryRspDTO implements Serializable {
 
     /**
-     * 主键
+     *
      */
-    @ApiModelProperty(name = "主键")
+    @ApiModelProperty(name = "")
     private Integer id;
 
     /**
-     * 任务名称
+     *
      */
-    @ApiModelProperty(name = "任务名称")
+    @ApiModelProperty(name = "")
     private String name;
 
     /**
-     * 目标URL
+     *
      */
-    @ApiModelProperty(name = "目标URL")
+    @ApiModelProperty(name = "")
     private String targetUrl;
 
     /**
-     * 列表xpath
+     *
      */
-    @ApiModelProperty(name = "列表xpath")
+    @ApiModelProperty(name = "")
+    private String homeUrl;
+
+    /**
+     *实体列表路径
+     */
+    @ApiModelProperty(name = "实体列表路径")
     private String entityListXpath;
 
     /**
-     * 属性配置
+     *参数配置
      */
-    @ApiModelProperty(name = "属性配置")
+    @ApiModelProperty(name = "参数配置")
     private String paramsRuleMap;
 
     /**
-     * 详情页配置
+     *详情页配置
      */
     @ApiModelProperty(name = "详情页配置")
     private String detailPageConfig;
 
     /**
-     * 详情页属性配置
+     *是否动态网页
      */
-    @ApiModelProperty(name = "详情页属性配置")
-    private String detailParamsRuleMap;
+    @ApiModelProperty(name = "是否动态网页")
+    private Byte dynamic;
 
     /**
-     * 是否动态页面
-     */
-    @ApiModelProperty(name = "是否动态页面")
-    private Byte isDynamic;
-
-    /**
-     * 创建时间
+     *创建时间
      */
     @ApiModelProperty(name = "创建时间")
     private Date createdAt;
 
     /**
-     * 状态1新建 2开始 3完成 4失败
+     *状态
      */
-    @ApiModelProperty(name = "状态1新建 2开始 3完成 4失败")
-    private Byte status;
+    @ApiModelProperty(name = "状态")
+    private Boolean status;
+
+    /**
+     *分页配置
+     */
+    @ApiModelProperty(name = "分页配置")
+    private String pageConfig;
 
     private static final long serialVersionUID = 1L;
 
@@ -79,7 +85,6 @@ public class TaskQueryRspDTO implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
@@ -87,7 +92,6 @@ public class TaskQueryRspDTO implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
     public String getTargetUrl() {
         return targetUrl;
     }
@@ -95,7 +99,13 @@ public class TaskQueryRspDTO implements Serializable {
     public void setTargetUrl(String targetUrl) {
         this.targetUrl = targetUrl;
     }
+    public String getHomeUrl() {
+        return homeUrl;
+    }
 
+    public void setHomeUrl(String homeUrl) {
+        this.homeUrl = homeUrl;
+    }
     public String getEntityListXpath() {
         return entityListXpath;
     }
@@ -103,7 +113,6 @@ public class TaskQueryRspDTO implements Serializable {
     public void setEntityListXpath(String entityListXpath) {
         this.entityListXpath = entityListXpath;
     }
-
     public String getParamsRuleMap() {
         return paramsRuleMap;
     }
@@ -111,7 +120,6 @@ public class TaskQueryRspDTO implements Serializable {
     public void setParamsRuleMap(String paramsRuleMap) {
         this.paramsRuleMap = paramsRuleMap;
     }
-
     public String getDetailPageConfig() {
         return detailPageConfig;
     }
@@ -119,23 +127,13 @@ public class TaskQueryRspDTO implements Serializable {
     public void setDetailPageConfig(String detailPageConfig) {
         this.detailPageConfig = detailPageConfig;
     }
-
-    public String getDetailParamsRuleMap() {
-        return detailParamsRuleMap;
+    public Byte getDynamic() {
+        return dynamic;
     }
 
-    public void setDetailParamsRuleMap(String detailParamsRuleMap) {
-        this.detailParamsRuleMap = detailParamsRuleMap;
+    public void setDynamic(Byte dynamic) {
+        this.dynamic = dynamic;
     }
-
-    public Byte getIsDynamic() {
-        return isDynamic;
-    }
-
-    public void setIsDynamic(Byte isDynamic) {
-        this.isDynamic = isDynamic;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -143,12 +141,18 @@ public class TaskQueryRspDTO implements Serializable {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
+    }
+    public String getPageConfig() {
+        return pageConfig;
+    }
+
+    public void setPageConfig(String pageConfig) {
+        this.pageConfig = pageConfig;
     }
 }

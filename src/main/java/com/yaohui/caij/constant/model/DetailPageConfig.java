@@ -1,6 +1,8 @@
 package com.yaohui.caij.constant.model;
 
-public class DetailedPageConfig {
+import java.util.Map;
+
+public class DetailPageConfig {
     /**
      * 参数路径
      */
@@ -20,6 +22,11 @@ public class DetailedPageConfig {
      * 正则表达式
      */
     private String regex;
+
+    /**
+     * 详情页面其他参数
+     */
+    private Map<String, ParamsElement> otherParamsRuleMap;
 
     public String getXpath() {
         return xpath;
@@ -51,5 +58,13 @@ public class DetailedPageConfig {
 
     public void setRegex(String regex) {
         this.regex = regex;
+    }
+
+    public Map<String, ParamsElement> getOtherParamsRuleMap() {
+        return otherParamsRuleMap;
+    }
+
+    public void setOtherParamsRuleMap(Map<String, ParamsElement> otherParamsRuleMap) {
+        this.otherParamsRuleMap = otherParamsRuleMap;
     }
 }

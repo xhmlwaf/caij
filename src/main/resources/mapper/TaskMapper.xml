@@ -8,14 +8,545 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="target_url" jdbcType="VARCHAR" property="targetUrl" />
+    <result column="home_url" jdbcType="VARCHAR" property="homeUrl" />
     <result column="entity_list_xpath" jdbcType="VARCHAR" property="entityListXpath" />
     <result column="params_rule_map" jdbcType="VARCHAR" property="paramsRuleMap" />
     <result column="detail_page_config" jdbcType="VARCHAR" property="detailPageConfig" />
-    <result column="detail_params_rule_map" jdbcType="VARCHAR" property="detailParamsRuleMap" />
-    <result column="is_dynamic" jdbcType="TINYINT" property="isDynamic" />
+    <result column="dynamic" jdbcType="TINYINT" property="dynamic" />
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="page_config" jdbcType="VARCHAR" property="pageConfig" />
   </resultMap>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="list[0].id!=null">
+        id,
+      </if>
+      <if test="list[0].name!=null">
+        name,
+      </if>
+      <if test="list[0].targetUrl!=null">
+        target_url,
+      </if>
+      <if test="list[0].homeUrl!=null">
+        home_url,
+      </if>
+      <if test="list[0].entityListXpath!=null">
+        entity_list_xpath,
+      </if>
+      <if test="list[0].paramsRuleMap!=null">
+        params_rule_map,
+      </if>
+      <if test="list[0].detailPageConfig!=null">
+        detail_page_config,
+      </if>
+      <if test="list[0].dynamic!=null">
+        dynamic,
+      </if>
+      <if test="list[0].createdAt!=null">
+        created_at,
+      </if>
+      <if test="list[0].status!=null">
+        status,
+      </if>
+      <if test="list[0].pageConfig!=null">
+        page_config,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix=" (" suffix=")" suffixOverrides=",">
+        <if test="item.id!=null">
+          #{item.id,jdbcType=INTEGER},
+        </if>
+        <if test="item.name!=null">
+          #{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          #{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.homeUrl!=null">
+          #{item.homeUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          #{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          #{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          #{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          #{item.dynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.createdAt!=null">
+          #{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.status!=null">
+          #{item.status,jdbcType=BIT},
+        </if>
+        <if test="item.pageConfig!=null">
+          #{item.pageConfig,jdbcType=VARCHAR},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    <foreach collection="list" index="index" item="item" separator=";">
+      update task
+      <set>
+        <if test="item.name!=null">
+          name=#{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          target_url=#{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.homeUrl!=null">
+          home_url=#{item.homeUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          entity_list_xpath=#{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          params_rule_map=#{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          detail_page_config=#{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          dynamic=#{item.dynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.createdAt!=null">
+          created_at=#{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.status!=null">
+          status=#{item.status,jdbcType=BIT},
+        </if>
+        <if test="item.pageConfig!=null">
+          page_config=#{item.pageConfig,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where 
+      id = #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="list[0].id!=null">
+        id,
+      </if>
+      <if test="list[0].name!=null">
+        name,
+      </if>
+      <if test="list[0].targetUrl!=null">
+        target_url,
+      </if>
+      <if test="list[0].homeUrl!=null">
+        home_url,
+      </if>
+      <if test="list[0].entityListXpath!=null">
+        entity_list_xpath,
+      </if>
+      <if test="list[0].paramsRuleMap!=null">
+        params_rule_map,
+      </if>
+      <if test="list[0].detailPageConfig!=null">
+        detail_page_config,
+      </if>
+      <if test="list[0].dynamic!=null">
+        dynamic,
+      </if>
+      <if test="list[0].createdAt!=null">
+        created_at,
+      </if>
+      <if test="list[0].status!=null">
+        status,
+      </if>
+      <if test="list[0].pageConfig!=null">
+        page_config,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix=" (" suffix=")" suffixOverrides=",">
+        <if test="item.id!=null">
+          #{item.id,jdbcType=INTEGER},
+        </if>
+        <if test="item.name!=null">
+          #{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          #{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.homeUrl!=null">
+          #{item.homeUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          #{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          #{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          #{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          #{item.dynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.createdAt!=null">
+          #{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.status!=null">
+          #{item.status,jdbcType=TINYINT},
+        </if>
+        <if test="item.pageConfig!=null">
+          #{item.pageConfig,jdbcType=VARCHAR},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    <foreach collection="list" index="index" item="item" separator=";">
+      update task
+      <set>
+        <if test="item.name!=null">
+          name=#{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          target_url=#{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.homeUrl!=null">
+          home_url=#{item.homeUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          entity_list_xpath=#{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          params_rule_map=#{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          detail_page_config=#{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          dynamic=#{item.dynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.createdAt!=null">
+          created_at=#{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.status!=null">
+          status=#{item.status,jdbcType=TINYINT},
+        </if>
+        <if test="item.pageConfig!=null">
+          page_config=#{item.pageConfig,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where 
+      id = #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="list[0].id!=null">
+        id,
+      </if>
+      <if test="list[0].name!=null">
+        name,
+      </if>
+      <if test="list[0].targetUrl!=null">
+        target_url,
+      </if>
+      <if test="list[0].homeUrl!=null">
+        home_url,
+      </if>
+      <if test="list[0].entityListXpath!=null">
+        entity_list_xpath,
+      </if>
+      <if test="list[0].paramsRuleMap!=null">
+        params_rule_map,
+      </if>
+      <if test="list[0].detailPageConfig!=null">
+        detail_page_config,
+      </if>
+      <if test="list[0].dynamic!=null">
+        dynamic,
+      </if>
+      <if test="list[0].createdAt!=null">
+        created_at,
+      </if>
+      <if test="list[0].status!=null">
+        status,
+      </if>
+      <if test="list[0].pageConfig!=null">
+        page_config,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix=" (" suffix=")" suffixOverrides=",">
+        <if test="item.id!=null">
+          #{item.id,jdbcType=INTEGER},
+        </if>
+        <if test="item.name!=null">
+          #{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          #{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.homeUrl!=null">
+          #{item.homeUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          #{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          #{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          #{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          #{item.dynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.createdAt!=null">
+          #{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.status!=null">
+          #{item.status,jdbcType=TINYINT},
+        </if>
+        <if test="item.pageConfig!=null">
+          #{item.pageConfig,jdbcType=VARCHAR},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    <foreach collection="list" index="index" item="item" separator=";">
+      update task
+      <set>
+        <if test="item.name!=null">
+          name=#{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          target_url=#{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.homeUrl!=null">
+          home_url=#{item.homeUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          entity_list_xpath=#{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          params_rule_map=#{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          detail_page_config=#{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          dynamic=#{item.dynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.createdAt!=null">
+          created_at=#{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.status!=null">
+          status=#{item.status,jdbcType=TINYINT},
+        </if>
+        <if test="item.pageConfig!=null">
+          page_config=#{item.pageConfig,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where 
+      id = #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="list[0].id!=null">
+        id,
+      </if>
+      <if test="list[0].name!=null">
+        name,
+      </if>
+      <if test="list[0].targetUrl!=null">
+        target_url,
+      </if>
+      <if test="list[0].homeUrl!=null">
+        home_url,
+      </if>
+      <if test="list[0].entityListXpath!=null">
+        entity_list_xpath,
+      </if>
+      <if test="list[0].paramsRuleMap!=null">
+        params_rule_map,
+      </if>
+      <if test="list[0].detailPageConfig!=null">
+        detail_page_config,
+      </if>
+      <if test="list[0].dynamic!=null">
+        dynamic,
+      </if>
+      <if test="list[0].createdAt!=null">
+        created_at,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix=" (" suffix=")" suffixOverrides=",">
+        <if test="item.id!=null">
+          #{item.id,jdbcType=INTEGER},
+        </if>
+        <if test="item.name!=null">
+          #{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          #{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.homeUrl!=null">
+          #{item.homeUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          #{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          #{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          #{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          #{item.dynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.createdAt!=null">
+          #{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    <foreach collection="list" index="index" item="item" separator=";">
+      update task
+      <set>
+        <if test="item.name!=null">
+          name=#{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          target_url=#{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.homeUrl!=null">
+          home_url=#{item.homeUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          entity_list_xpath=#{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          params_rule_map=#{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          detail_page_config=#{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          dynamic=#{item.dynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.createdAt!=null">
+          created_at=#{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where 
+      id = #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="list[0].id!=null">
+        id,
+      </if>
+      <if test="list[0].name!=null">
+        name,
+      </if>
+      <if test="list[0].targetUrl!=null">
+        target_url,
+      </if>
+      <if test="list[0].homeUrl!=null">
+        home_url,
+      </if>
+      <if test="list[0].entityListXpath!=null">
+        entity_list_xpath,
+      </if>
+      <if test="list[0].paramsRuleMap!=null">
+        params_rule_map,
+      </if>
+      <if test="list[0].detailPageConfig!=null">
+        detail_page_config,
+      </if>
+      <if test="list[0].dynamic!=null">
+        dynamic,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix=" (" suffix=")" suffixOverrides=",">
+        <if test="item.id!=null">
+          #{item.id,jdbcType=INTEGER},
+        </if>
+        <if test="item.name!=null">
+          #{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          #{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.homeUrl!=null">
+          #{item.homeUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          #{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          #{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          #{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          #{item.dynamic,jdbcType=TINYINT},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    <foreach collection="list" index="index" item="item" separator=";">
+      update task
+      <set>
+        <if test="item.name!=null">
+          name=#{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetUrl!=null">
+          target_url=#{item.targetUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.homeUrl!=null">
+          home_url=#{item.homeUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.entityListXpath!=null">
+          entity_list_xpath=#{item.entityListXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.paramsRuleMap!=null">
+          params_rule_map=#{item.paramsRuleMap,jdbcType=VARCHAR},
+        </if>
+        <if test="item.detailPageConfig!=null">
+          detail_page_config=#{item.detailPageConfig,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          dynamic=#{item.dynamic,jdbcType=TINYINT},
+        </if>
+      </set>
+      where 
+      id = #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
   <insert id="insertBatchSelective" parameterType="java.util.List">
     insert into task
     <trim prefix="(" suffix=")" suffixOverrides=",">

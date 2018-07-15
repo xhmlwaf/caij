@@ -30,17 +30,12 @@ public class WebPageConfig {
     /**
      * 详情页规则
      */
-    private DetailedPageConfig detailedPageConfig;
-
-    /**
-     * 详情页面其他参数
-     */
-    private Map<String, ParamsElement> otherParamsRuleMap;
+    private DetailPageConfig detailPageConfig;
 
     /**
      * 动态网站
      */
-    private boolean dynamicPage;
+    private boolean dynamic;
 
 
     public String getTargetUrl() {
@@ -79,27 +74,19 @@ public class WebPageConfig {
         this.paramsRuleMap = paramsRuleMap;
     }
 
-    public DetailedPageConfig getDetailedPageConfig() {
-        return detailedPageConfig;
+    public DetailPageConfig getDetailPageConfig() {
+        return detailPageConfig;
     }
 
-    public void setDetailedPageConfig(DetailedPageConfig detailedPageConfig) {
-        this.detailedPageConfig = detailedPageConfig;
+    public void setDetailPageConfig(DetailPageConfig detailPageConfig) {
+        this.detailPageConfig = detailPageConfig;
     }
 
-    public Map<String, ParamsElement> getOtherParamsRuleMap() {
-        return otherParamsRuleMap;
+    public boolean isDynamic() {
+        return dynamic;
     }
 
-    public void setOtherParamsRuleMap(Map<String, ParamsElement> otherParamsRuleMap) {
-        this.otherParamsRuleMap = otherParamsRuleMap;
-    }
-
-    public boolean isDynamicPage() {
-        return dynamicPage;
-    }
-
-    public void setDynamicPage(boolean dynamicPage) {
-        this.dynamicPage = dynamicPage;
+    public void setDynamic(boolean dynamic) {
+        this.dynamic = dynamic;
     }
 }

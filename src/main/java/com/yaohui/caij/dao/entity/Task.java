@@ -2,35 +2,28 @@ package com.yaohui.caij.dao.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.*;
 
 public class Task implements Serializable {
-    /**
-     * 主键
-     */
     @Id
     private Integer id;
 
-    /**
-     * 任务名称
-     */
     private String name;
 
-    /**
-     * 目标URL
-     */
     @Column(name = "target_url")
     private String targetUrl;
 
+    @Column(name = "home_url")
+    private String homeUrl;
+
     /**
-     * 列表xpath
+     * 实体列表路径
      */
     @Column(name = "entity_list_xpath")
     private String entityListXpath;
 
     /**
-     * 属性配置
+     * 参数配置
      */
     @Column(name = "params_rule_map")
     private String paramsRuleMap;
@@ -42,16 +35,9 @@ public class Task implements Serializable {
     private String detailPageConfig;
 
     /**
-     * 详情页属性配置
+     * 是否动态网页
      */
-    @Column(name = "detail_params_rule_map")
-    private String detailParamsRuleMap;
-
-    /**
-     * 是否动态页面
-     */
-    @Column(name = "is_dynamic")
-    private Byte isDynamic;
+    private Byte dynamic;
 
     /**
      * 创建时间
@@ -60,97 +46,105 @@ public class Task implements Serializable {
     private Date createdAt;
 
     /**
-     * 状态1新建 2开始 3完成 4失败
+     * 状态
      */
-    private Byte status;
+    private Boolean status;
+
+    /**
+     * 分页配置
+     */
+    @Column(name = "page_config")
+    private String pageConfig;
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 获取主键
-     *
-     * @return id - 主键
+     * @return id
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * 设置主键
-     *
-     * @param id 主键
+     * @param id
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * 获取任务名称
-     *
-     * @return name - 任务名称
+     * @return name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 设置任务名称
-     *
-     * @param name 任务名称
+     * @param name
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * 获取目标URL
-     *
-     * @return target_url - 目标URL
+     * @return target_url
      */
     public String getTargetUrl() {
         return targetUrl;
     }
 
     /**
-     * 设置目标URL
-     *
-     * @param targetUrl 目标URL
+     * @param targetUrl
      */
     public void setTargetUrl(String targetUrl) {
         this.targetUrl = targetUrl;
     }
 
     /**
-     * 获取列表xpath
+     * @return home_url
+     */
+    public String getHomeUrl() {
+        return homeUrl;
+    }
+
+    /**
+     * @param homeUrl
+     */
+    public void setHomeUrl(String homeUrl) {
+        this.homeUrl = homeUrl;
+    }
+
+    /**
+     * 获取实体列表路径
      *
-     * @return entity_list_xpath - 列表xpath
+     * @return entity_list_xpath - 实体列表路径
      */
     public String getEntityListXpath() {
         return entityListXpath;
     }
 
     /**
-     * 设置列表xpath
+     * 设置实体列表路径
      *
-     * @param entityListXpath 列表xpath
+     * @param entityListXpath 实体列表路径
      */
     public void setEntityListXpath(String entityListXpath) {
         this.entityListXpath = entityListXpath;
     }
 
     /**
-     * 获取属性配置
+     * 获取参数配置
      *
-     * @return params_rule_map - 属性配置
+     * @return params_rule_map - 参数配置
      */
     public String getParamsRuleMap() {
         return paramsRuleMap;
     }
 
     /**
-     * 设置属性配置
+     * 设置参数配置
      *
-     * @param paramsRuleMap 属性配置
+     * @param paramsRuleMap 参数配置
      */
     public void setParamsRuleMap(String paramsRuleMap) {
         this.paramsRuleMap = paramsRuleMap;
@@ -175,39 +169,21 @@ public class Task implements Serializable {
     }
 
     /**
-     * 获取详情页属性配置
+     * 获取是否动态网页
      *
-     * @return detail_params_rule_map - 详情页属性配置
+     * @return dynamic - 是否动态网页
      */
-    public String getDetailParamsRuleMap() {
-        return detailParamsRuleMap;
+    public Byte getDynamic() {
+        return dynamic;
     }
 
     /**
-     * 设置详情页属性配置
+     * 设置是否动态网页
      *
-     * @param detailParamsRuleMap 详情页属性配置
+     * @param dynamic 是否动态网页
      */
-    public void setDetailParamsRuleMap(String detailParamsRuleMap) {
-        this.detailParamsRuleMap = detailParamsRuleMap;
-    }
-
-    /**
-     * 获取是否动态页面
-     *
-     * @return is_dynamic - 是否动态页面
-     */
-    public Byte getIsDynamic() {
-        return isDynamic;
-    }
-
-    /**
-     * 设置是否动态页面
-     *
-     * @param isDynamic 是否动态页面
-     */
-    public void setIsDynamic(Byte isDynamic) {
-        this.isDynamic = isDynamic;
+    public void setDynamic(Byte dynamic) {
+        this.dynamic = dynamic;
     }
 
     /**
@@ -229,21 +205,39 @@ public class Task implements Serializable {
     }
 
     /**
-     * 获取状态1新建 2开始 3完成 4失败
+     * 获取状态
      *
-     * @return status - 状态1新建 2开始 3完成 4失败
+     * @return status - 状态
      */
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
     /**
-     * 设置状态1新建 2开始 3完成 4失败
+     * 设置状态
      *
-     * @param status 状态1新建 2开始 3完成 4失败
+     * @param status 状态
      */
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    /**
+     * 获取分页配置
+     *
+     * @return page_config - 分页配置
+     */
+    public String getPageConfig() {
+        return pageConfig;
+    }
+
+    /**
+     * 设置分页配置
+     *
+     * @param pageConfig 分页配置
+     */
+    public void setPageConfig(String pageConfig) {
+        this.pageConfig = pageConfig;
     }
 
     @Override
@@ -259,15 +253,16 @@ public class Task implements Serializable {
         }
         Task other = (Task) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-                && (this.getTargetUrl() == null ? other.getTargetUrl() == null : this.getTargetUrl().equals(other.getTargetUrl()))
-                && (this.getEntityListXpath() == null ? other.getEntityListXpath() == null : this.getEntityListXpath().equals(other.getEntityListXpath()))
-                && (this.getParamsRuleMap() == null ? other.getParamsRuleMap() == null : this.getParamsRuleMap().equals(other.getParamsRuleMap()))
-                && (this.getDetailPageConfig() == null ? other.getDetailPageConfig() == null : this.getDetailPageConfig().equals(other.getDetailPageConfig()))
-                && (this.getDetailParamsRuleMap() == null ? other.getDetailParamsRuleMap() == null : this.getDetailParamsRuleMap().equals(other.getDetailParamsRuleMap()))
-                && (this.getIsDynamic() == null ? other.getIsDynamic() == null : this.getIsDynamic().equals(other.getIsDynamic()))
-                && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getTargetUrl() == null ? other.getTargetUrl() == null : this.getTargetUrl().equals(other.getTargetUrl()))
+            && (this.getHomeUrl() == null ? other.getHomeUrl() == null : this.getHomeUrl().equals(other.getHomeUrl()))
+            && (this.getEntityListXpath() == null ? other.getEntityListXpath() == null : this.getEntityListXpath().equals(other.getEntityListXpath()))
+            && (this.getParamsRuleMap() == null ? other.getParamsRuleMap() == null : this.getParamsRuleMap().equals(other.getParamsRuleMap()))
+            && (this.getDetailPageConfig() == null ? other.getDetailPageConfig() == null : this.getDetailPageConfig().equals(other.getDetailPageConfig()))
+            && (this.getDynamic() == null ? other.getDynamic() == null : this.getDynamic().equals(other.getDynamic()))
+            && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getPageConfig() == null ? other.getPageConfig() == null : this.getPageConfig().equals(other.getPageConfig()));
     }
 
     @Override
@@ -277,13 +272,14 @@ public class Task implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getTargetUrl() == null) ? 0 : getTargetUrl().hashCode());
+        result = prime * result + ((getHomeUrl() == null) ? 0 : getHomeUrl().hashCode());
         result = prime * result + ((getEntityListXpath() == null) ? 0 : getEntityListXpath().hashCode());
         result = prime * result + ((getParamsRuleMap() == null) ? 0 : getParamsRuleMap().hashCode());
         result = prime * result + ((getDetailPageConfig() == null) ? 0 : getDetailPageConfig().hashCode());
-        result = prime * result + ((getDetailParamsRuleMap() == null) ? 0 : getDetailParamsRuleMap().hashCode());
-        result = prime * result + ((getIsDynamic() == null) ? 0 : getIsDynamic().hashCode());
+        result = prime * result + ((getDynamic() == null) ? 0 : getDynamic().hashCode());
         result = prime * result + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getPageConfig() == null) ? 0 : getPageConfig().hashCode());
         return result;
     }
 
@@ -296,13 +292,14 @@ public class Task implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", targetUrl=").append(targetUrl);
+        sb.append(", homeUrl=").append(homeUrl);
         sb.append(", entityListXpath=").append(entityListXpath);
         sb.append(", paramsRuleMap=").append(paramsRuleMap);
         sb.append(", detailPageConfig=").append(detailPageConfig);
-        sb.append(", detailParamsRuleMap=").append(detailParamsRuleMap);
-        sb.append(", isDynamic=").append(isDynamic);
+        sb.append(", dynamic=").append(dynamic);
         sb.append(", createdAt=").append(createdAt);
         sb.append(", status=").append(status);
+        sb.append(", pageConfig=").append(pageConfig);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
