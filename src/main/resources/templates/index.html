@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <#include "common/header.ftl">
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+<div id="wrapper">
+    <!--左侧导航开始-->
+    <#include "common/menu.ftl">
+    <!--左侧导航结束-->
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+            <#include "biz/${bodyFilePath}"><#--body页内容动态输出-->
+    </div>
+    <!--右侧部分结束-->
+</div>
+</body>
+</html>

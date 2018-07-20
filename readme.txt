@@ -8,4 +8,29 @@
 
 2.更多的功能
 浏览器设置IP代理
+登陆账户
+
+
+自定义的，模版批量删除
+
+
+技术点：
+即Springboot中默认的静态资源路径有4个，分别是：
+
+classpath:/METAINF/resources/，
+
+classpath:/resources/，
+
+classpath:/static/，
+
+classpath:/public/
+
+优先级顺序为：META-INF/resources  >  resources  >  static  >  public
+
+datatable
+https://www.cnblogs.com/ma-lijun/p/5565977.html
+
+
+
+可以通过修改application.properties文件中的spring.mvc.static-path-pattern属性来修改默认的映射**，配置如下
 

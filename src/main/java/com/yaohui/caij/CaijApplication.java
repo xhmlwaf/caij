@@ -9,4 +9,5 @@ public class CaijApplication {
     public static void main(String[] args) {
         SpringApplication.run(CaijApplication.class, args);
     }
+
 }
