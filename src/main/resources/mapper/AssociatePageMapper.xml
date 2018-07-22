@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaohui.caij.dao.AssociatePageMapper">
+  <resultMap id="BaseResultMap" type="com.yaohui.caij.dao.entity.AssociatePage">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="xpath" jdbcType="VARCHAR" property="xpath" />
+    <result column="location" jdbcType="TINYINT" property="location" />
+    <result column="attr_name" jdbcType="VARCHAR" property="attrName" />
+    <result column="regex" jdbcType="VARCHAR" property="regex" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+  </resultMap>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into associate_page
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="list[0].id!=null">
+        id,
+      </if>
+      <if test="list[0].taskId!=null">
+        task_id,
+      </if>
+      <if test="list[0].name!=null">
+        name,
+      </if>
+      <if test="list[0].xpath!=null">
+        xpath,
+      </if>
+      <if test="list[0].location!=null">
+        location,
+      </if>
+      <if test="list[0].attrName!=null">
+        attr_name,
+      </if>
+      <if test="list[0].regex!=null">
+        regex,
+      </if>
+      <if test="list[0].createdAt!=null">
+        created_at,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix=" (" suffix=")" suffixOverrides=",">
+        <if test="item.id!=null">
+          #{item.id,jdbcType=INTEGER},
+        </if>
+        <if test="item.taskId!=null">
+          #{item.taskId,jdbcType=INTEGER},
+        </if>
+        <if test="item.name!=null">
+          #{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.xpath!=null">
+          #{item.xpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.location!=null">
+          #{item.location,jdbcType=TINYINT},
+        </if>
+        <if test="item.attrName!=null">
+          #{item.attrName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.regex!=null">
+          #{item.regex,jdbcType=VARCHAR},
+        </if>
+        <if test="item.createdAt!=null">
+          #{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    <foreach collection="list" index="index" item="item" separator=";">
+      update associate_page
+      <set>
+        <if test="item.taskId!=null">
+          task_id=#{item.taskId,jdbcType=INTEGER},
+        </if>
+        <if test="item.name!=null">
+          name=#{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.xpath!=null">
+          xpath=#{item.xpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.location!=null">
+          location=#{item.location,jdbcType=TINYINT},
+        </if>
+        <if test="item.attrName!=null">
+          attr_name=#{item.attrName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.regex!=null">
+          regex=#{item.regex,jdbcType=VARCHAR},
+        </if>
+        <if test="item.createdAt!=null">
+          created_at=#{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where 
+      id = #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+</mapper>

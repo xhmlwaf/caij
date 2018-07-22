@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaohui.caij.dao.TaskMapper">
+  <resultMap id="BaseResultMap" type="com.yaohui.caij.dao.entity.Task">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="page_url" jdbcType="VARCHAR" property="pageUrl" />
+    <result column="list_xpath" jdbcType="VARCHAR" property="listXpath" />
+    <result column="dynamic" jdbcType="TINYINT" property="dynamic" />
+    <result column="multi_page" jdbcType="TINYINT" property="multiPage" />
+    <result column="page_url_template" jdbcType="VARCHAR" property="pageUrlTemplate" />
+    <result column="start_page" jdbcType="INTEGER" property="startPage" />
+    <result column="end_page" jdbcType="INTEGER" property="endPage" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+  </resultMap>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="list[0].id!=null">
+        id,
+      </if>
+      <if test="list[0].name!=null">
+        name,
+      </if>
+      <if test="list[0].pageUrl!=null">
+        page_url,
+      </if>
+      <if test="list[0].listXpath!=null">
+        list_xpath,
+      </if>
+      <if test="list[0].dynamic!=null">
+        dynamic,
+      </if>
+      <if test="list[0].multiPage!=null">
+        multi_page,
+      </if>
+      <if test="list[0].pageUrlTemplate!=null">
+        page_url_template,
+      </if>
+      <if test="list[0].startPage!=null">
+        start_page,
+      </if>
+      <if test="list[0].endPage!=null">
+        end_page,
+      </if>
+      <if test="list[0].createdAt!=null">
+        created_at,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix=" (" suffix=")" suffixOverrides=",">
+        <if test="item.id!=null">
+          #{item.id,jdbcType=INTEGER},
+        </if>
+        <if test="item.name!=null">
+          #{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.pageUrl!=null">
+          #{item.pageUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.listXpath!=null">
+          #{item.listXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          #{item.dynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.multiPage!=null">
+          #{item.multiPage,jdbcType=TINYINT},
+        </if>
+        <if test="item.pageUrlTemplate!=null">
+          #{item.pageUrlTemplate,jdbcType=VARCHAR},
+        </if>
+        <if test="item.startPage!=null">
+          #{item.startPage,jdbcType=INTEGER},
+        </if>
+        <if test="item.endPage!=null">
+          #{item.endPage,jdbcType=INTEGER},
+        </if>
+        <if test="item.createdAt!=null">
+          #{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    <foreach collection="list" index="index" item="item" separator=";">
+      update task
+      <set>
+        <if test="item.name!=null">
+          name=#{item.name,jdbcType=VARCHAR},
+        </if>
+        <if test="item.pageUrl!=null">
+          page_url=#{item.pageUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.listXpath!=null">
+          list_xpath=#{item.listXpath,jdbcType=VARCHAR},
+        </if>
+        <if test="item.dynamic!=null">
+          dynamic=#{item.dynamic,jdbcType=TINYINT},
+        </if>
+        <if test="item.multiPage!=null">
+          multi_page=#{item.multiPage,jdbcType=TINYINT},
+        </if>
+        <if test="item.pageUrlTemplate!=null">
+          page_url_template=#{item.pageUrlTemplate,jdbcType=VARCHAR},
+        </if>
+        <if test="item.startPage!=null">
+          start_page=#{item.startPage,jdbcType=INTEGER},
+        </if>
+        <if test="item.endPage!=null">
+          end_page=#{item.endPage,jdbcType=INTEGER},
+        </if>
+        <if test="item.createdAt!=null">
+          created_at=#{item.createdAt,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where 
+      id = #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+</mapper>
