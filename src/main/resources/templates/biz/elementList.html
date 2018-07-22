@@ -33,20 +33,23 @@
                         <small>分类，查找</small>
                     </h5>
                     <div class="ibox-tools">
-                        <a class="btn btn-success btn-rounded" href="/admin?page=taskInsert.html">新增</a>
+                        <button class="btn btn-success btn-rounded" onclick="toInsert()" >新增</button>
                     </div>
                 </div>
                 <div class="ibox-content">
+                    <input id="taskId" name="taskId" type="hidden" value="${taskId}" />
                     <table class="table table-striped table-bordered table-hover dataTables-example"
                            id="tasklist">
                         <thead>
                         <tr>
                             <th><input type="checkbox" class="checkall"></th>
                             <th>编号</th>
-                            <th>任务名称</th>
-                            <th>网页类型</th>
-                            <th>单页或多页</th>
-                            <th>创建时间</th>
+                            <th>名称</th>
+                            <th>xpath</th>
+                            <th>内容类型</th>
+                            <th>属性名称</th>
+                            <th>正则表达式</th>
+                            <th>关联页名称</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -59,10 +62,12 @@
                         <tr>
                             <th><input type="checkbox" class="checkall"></th>
                             <th>编号</th>
-                            <th>任务名称</th>
-                            <th>网页类型</th>
-                            <th>单页或多页</th>
-                            <th>创建时间</th>
+                            <th>名称</th>
+                            <th>xpath</th>
+                            <th>内容类型</th>
+                            <th>属性名称</th>
+                            <th>正则表达式</th>
+                            <th>关联页名称</th>
                             <th>操作</th>
                         </tr>
                         </tfoot>
@@ -91,7 +96,6 @@
 
 <!-- Page-Level Scripts -->
 <script>
-
     $(document).ready(function () {
         //提示信息
         var lang = {
@@ -151,22 +155,24 @@
                                                 },
                                                 {
                                                      orderable: false,
-                                                     targets: [1, 2] // 指定不排序列，下标 0（比如 ID，从 0 开始数，此处帐号、用户组和操作不能排序）
+                                                     targets: [1] // 指定不排序列，下标 0（比如 ID，从 0 开始数
                                                 }
                                                 ],
-                            fnRowCallback : function( ) {
-                                this.api();
+                            fnRowCallback : function(nRow, aData, iDisplayIndex ) {
+                                $('td:eq(1)', nRow).html(iDisplayIndex+1);
+                                return nRow;
                             },
                             ajax: function (data, callback, settings) {
                                                     //封装请求参数
                                                     var param = {};
                                                     param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
                                                     param.pageNo = (data.start / data.length) + 1;//当前页码
+                                                    param.taskId = $("#taskId").val();
                                                     //console.log(param);
                                                     //ajax请求数据
                                                     $.ajax({
                                                                type: "GET",
-                                                               url: "/task",
+                                                               url: "/element",
                                                                cache: false, //禁用缓存
                                                                data: param, //传入组装的参数
                                                                dataType: "json",
@@ -197,31 +203,24 @@
                                                         "render": function (data, type, full, meta) {
                                                             return '<input type="checkbox" class="checkchild" id="'+full.id+'" />';
                                                         },"bSortable": false},
-
                                                     {"data": "id"},
                                                     {"data": "name"},
+                                                    {"data": "xpath"},
                                                     {"data": function (obj) {
-                                                            if(obj.dynamic==0){
-                                                                return "静态数据"
-                                                            } else{
-                                                                return "动态数据"
+                                                            if(obj.location==0){
+                                                                return "包含内容"
+                                                            } else {
+                                                                return "属性"
                                                             }
                                                         }},
-                                                    {"data": function (obj) {
-                                                            if(obj.multiPage==1){
-                                                                return "多页"
-                                                            } else{
-                                                                return "单页"
-                                                            }
-                                                        }},
-                                                    {"data": "createdAt"},
+                                                    {"data": "attrName"},
+                                                    {"data": "regex"},
+                                                    {"data": "associatePageName"},
                                                     {"data":
                                                             function (obj) {
-            return '<button  class="btn btn-primary btn-rounded" onclick=toConfigElement('+obj.id+')>配置元素</button>'+
-                   '<button  class="btn btn-success btn-rounded" onclick=toConfigAssociatePage('+obj.id+')>配置关联页</button>'+
-                   '<button  class="btn btn-warning btn-rounded" onclick=toUpdate('+obj.id+')>编辑</button> ' +
-                   '<button  class="btn btn-danger btn-rounded" onclick=toDeleteTask('+obj.id+')>删除</button>'+
-                   '<button  class="btn btn-info btn-rounded" onclick=toStartTask('+obj.id+')>启动</button>'
+                                                        $("#taskId").val(obj.taskId);
+            return '<button  class="btn btn-info btn-rounded" onclick=toUpdate('+obj.id+')>编辑</button> ' +
+                   '<button  class="btn btn-danger btn-rounded" onclick=toDelete('+obj.id+')>删除</button>'
 
         }
 
@@ -236,32 +235,27 @@
             $(".checkall").prop("checked", check);
         });
 
+
     });
     
 function toUpdate(id) {
-    location.href = "/admin?page=taskUpdate.html&id="+id;
+    location.href = "/admin?page=elementUpdate.html&id="+id;
 }
-
-function toConfigAssociatePage(id) {
-    location.href = "/admin?page=associatePageList.html&id="+id;
+function toInsert() {
+    location.href ="/admin?page=elementInsert.html&taskId="+$("#taskId").val()
 }
-
-function toConfigElement(id) {
-    location.href = "/admin?page=elementList.html&taskId="+id;
-}
-
-function toDeleteTask(id) {
+function toDelete(id) {
     parent.layer.confirm('确定要删除吗？', {
         btn: ['确定','取消'], //按钮
         shade: false //不显示遮罩
     }, function(){
-       // parent.layer.msg('的确很重要', {icon: 1});
+        // parent.layer.msg('的确很重要', {icon: 1});
         $.ajax({
-            url:"task/"+id,
+            url:"element/"+id,
             type:"DELETE",
             contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
             success:function(){
-                location.href = "/admin?page=taskList.html";
+                location.href = "/admin?page=elementList.html&taskId="+$("#taskId").val();
             },
             error:function (data) {
                 alert(JSON.stringify(data.message));
@@ -269,23 +263,10 @@ function toDeleteTask(id) {
         });
 
     }, function(){
-       //parent.layer.msg('奇葩么么哒', {shift: 6});
+        //parent.layer.msg('奇葩么么哒', {shift: 6});
     });
 }
 
-function toStartTask(id) {
-    $.ajax({
-        url:"task/"+id+"/start",
-        type:"GET",
-        contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-        success:function(){
-            alert("成功");
-        },
-        error:function (data) {
-            alert(JSON.stringify(data.message));
-        }
-    });
-}
 </script>
 </body>
 

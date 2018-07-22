@@ -8,9 +8,9 @@ public class ParamsElement {
     public ParamsElement() {
     }
 
-    public ParamsElement(String xpath, String contentType, String attrName, String regex) {
+    public ParamsElement(String xpath, int location, String attrName, String regex) {
         this.xpath = xpath;
-        this.contentType = contentType;
+        this.location = location;
         this.attrName = attrName;
         this.regex = regex;
     }
@@ -23,7 +23,7 @@ public class ParamsElement {
     /**
      * 内容类型
      */
-    private String contentType;
+    private int location;
 
     /**
      * 属性名称
@@ -43,12 +43,12 @@ public class ParamsElement {
         this.xpath = xpath;
     }
 
-    public String getContentType() {
-        return contentType;
+    public int getLocation() {
+        return location;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
+    public void setLocation(int location) {
+        this.location = location;
     }
 
     public String getAttrName() {

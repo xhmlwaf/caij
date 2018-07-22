@@ -5,7 +5,7 @@ import com.yaohui.caij.constant.model.DetailPageConfig;
 import com.yaohui.caij.constant.model.PageConfig;
 import com.yaohui.caij.constant.model.ParamsElement;
 import com.yaohui.caij.constant.model.WebPageConfig;
-import com.yaohui.caij.enums.ContentType;
+import com.yaohui.caij.enums.LocationType;
 import com.yaohui.caij.utils.rule.DetailPageUrlRule;
 import com.yaohui.caij.utils.rule.NextPageUrlRule;
 
@@ -14,6 +14,7 @@ import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class CaijUtils {
     }
 
     public static List<Map<String, Object>> dealAndReturn(WebPageConfig webPageConfig) {
-        System.out.println(webPageConfig.getTargetUrl());
+        logger.info("采集目标URL:"+webPageConfig.getTargetUrl());
         String webContent = WebPageContentUtil.getWebPageContent(webPageConfig.getTargetUrl(), webPageConfig.isDynamic());
         if (webContent == null) {
             logger.error("获取网页内容异常.url:" + webPageConfig.getTargetUrl());
@@ -56,12 +57,14 @@ public class CaijUtils {
         for (Element e : entityContentList) {
             Map<String, Object> m = new HashMap<String, Object>();
             getResultMap(webPageConfig.getParamsRuleMap(), e, m);
-            DetailPageConfig detailPageConfig = webPageConfig.getDetailPageConfig();
-            if (detailPageConfig != null) {
-                String detailPageUrl = DetailPageUrlRule.getDetailPageUrl(webPageConfig, e);
-                String detailWebContent = WebPageContentUtil.getWebPageContent(detailPageUrl, webPageConfig.isDynamic());
-                Document detailDoc = JsoupUtil.getDocumentFromContent(detailWebContent);
-                getResultMap(detailPageConfig.getOtherParamsRuleMap(), detailDoc, m);
+            List<DetailPageConfig> detailPageConfigList = webPageConfig.getDetailPageConfigList();
+            if (!CollectionUtils.isEmpty(detailPageConfigList)) {
+                for (DetailPageConfig detailPageConfig : detailPageConfigList) {
+                    String detailPageUrl = DetailPageUrlRule.getDetailPageUrl(webPageConfig.getHomeUrl(), detailPageConfig, e);
+                    String detailWebContent = WebPageContentUtil.getWebPageContent(detailPageUrl, webPageConfig.isDynamic());
+                    Document detailDoc = JsoupUtil.getDocumentFromContent(detailWebContent);
+                    getResultMap(detailPageConfig.getOtherParamsRuleMap(), detailDoc, m);
+                }
             }
             resultList.add(m);
         }
@@ -75,13 +78,13 @@ public class CaijUtils {
             String key = entry.getKey();
             ParamsElement value = entry.getValue();
             String data = null;
-            if (value.getContentType().equals(ContentType.HTML.getValue())) {
+            if (value.getLocation() == LocationType.HTML.getValue()) {
                 data = e.select(value.getXpath()).html();
-            } else if (value.getContentType().equals(ContentType.ATTR.getValue())) {
+            } else if (value.getLocation() == LocationType.ATTR.getValue()) {
                 data = e.select(value.getXpath()).attr(value.getAttrName());
             }
             String regex = value.getRegex();
-            if (regex != null) {
+            if (StringUtils.isNotBlank(regex)) {
                 String regexStr = getGroupValue(data, regex);
                 if (regexStr != null) {
                     data = regexStr;

@@ -34,7 +34,7 @@ public class ChromeDriverUtils {
 //    DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 //    capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 //    capabilities.setJavascriptEnabled(true);
-        System.setProperty("webdriver.chrome.driver", driverPath);
+        System.setProperty("webdriver.chrome.driver", "E:\\软件\\chromedriver_win32\\chromedriver.exe");
 
         return new ChromeDriver(options);
     }

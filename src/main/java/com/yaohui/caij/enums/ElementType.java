@@ -3,7 +3,7 @@ package com.yaohui.caij.enums;
 public enum ElementType {
 
   TEXT(0, "文本"),
-  IMG(1, "文件路径");
+  FILEPATH(1, "文件路径");
 
   private int type;
   private String desc;

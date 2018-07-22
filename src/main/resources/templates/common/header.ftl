@@ -23,10 +23,8 @@
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="js/plugins/layer/layer.min.js"></script>
+<script src="js/initForm.js"></script>
 
 <!-- 自定义js -->
 <script src="js/hAdmin.js?v=4.1.0"></script>
 <script type="text/javascript" src="js/index.js"></script>
-
-<!-- 第三方插件 -->
-<script src="js/plugins/pace/pace.min.js"></script>

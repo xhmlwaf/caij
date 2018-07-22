@@ -41,6 +41,7 @@ public class WebPageContentUtil {
         chromeDriver.get("about:blank");
         chromeDriver.get(urlString);
         String source = chromeDriver.getPageSource();
+        logger.info("网页内容："+source);
         ChromeDriverPoolUtils.pool.returnObject(chromeDriver);
         return source;
     }
@@ -53,6 +54,7 @@ public class WebPageContentUtil {
                 return getSourceContent(url);
             }
         } catch (Exception e) {
+            logger.error("获取网页内容发生异常.",e);
             return null;
         }
     }

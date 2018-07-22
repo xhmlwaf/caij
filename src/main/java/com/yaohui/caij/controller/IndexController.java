@@ -26,4 +26,13 @@ public class IndexController {
     return new ModelAndView(INDEX_PAGE_TEMPLATE, modelMap);
   }
 
+  @GetMapping("/")
+  public ModelAndView defaultPage(@RequestParam(value = "page", required = false, defaultValue = DEFAULT_PAGE) String page,
+                              @RequestParam Map<String,String> map) {
+    Map<String, Object> modelMap = new HashMap<>();
+    modelMap.putAll(map);
+    modelMap.put(BIZ_PAGE_PARAM_NAME, page);
+    return new ModelAndView(INDEX_PAGE_TEMPLATE, modelMap);
+  }
+
 }

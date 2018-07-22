@@ -6,9 +6,6 @@
 
 $(document).ready(function () {
 
-    // MetsiMenu
-    $('#side-menu').metisMenu();
-
     // 打开右侧边栏
     $('.right-sidebar-toggle').click(function () {
         $('#right-sidebar').toggleClass('sidebar-open');

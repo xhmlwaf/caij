@@ -1,5 +1,6 @@
 package com.yaohui.caij.constant.model;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +31,7 @@ public class WebPageConfig {
     /**
      * 详情页规则
      */
-    private DetailPageConfig detailPageConfig;
+    private List<DetailPageConfig> detailPageConfigList;
 
     /**
      * 动态网站
@@ -74,12 +75,13 @@ public class WebPageConfig {
         this.paramsRuleMap = paramsRuleMap;
     }
 
-    public DetailPageConfig getDetailPageConfig() {
-        return detailPageConfig;
+
+    public List<DetailPageConfig> getDetailPageConfigList() {
+        return detailPageConfigList;
     }
 
-    public void setDetailPageConfig(DetailPageConfig detailPageConfig) {
-        this.detailPageConfig = detailPageConfig;
+    public void setDetailPageConfigList(List<DetailPageConfig> detailPageConfigList) {
+        this.detailPageConfigList = detailPageConfigList;
     }
 
     public boolean isDynamic() {

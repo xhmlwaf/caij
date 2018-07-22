@@ -4,7 +4,8 @@ package com.yaohui.caij.constant;
  * 系统错误码定义
  */
 public enum ErrorCode {
-    SUCCESS("000000", "success");
+    SUCCESS("000000", "success"),
+    TASK_NOT_EXSIT("000001", "任务不存在");
 
     private String code;
     private String desc;

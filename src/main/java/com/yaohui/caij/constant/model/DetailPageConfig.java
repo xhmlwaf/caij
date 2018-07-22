@@ -11,7 +11,7 @@ public class DetailPageConfig {
     /**
      * 内容类型
      */
-    private String contentType;
+    private int location;
 
     /**
      * 属性名称
@@ -36,12 +36,12 @@ public class DetailPageConfig {
         this.xpath = xpath;
     }
 
-    public String getContentType() {
-        return contentType;
+    public int getLocation() {
+        return location;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
+    public void setLocation(int location) {
+        this.location = location;
     }
 
     public String getAttrName() {

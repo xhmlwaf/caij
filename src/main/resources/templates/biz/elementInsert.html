@@ -31,26 +31,19 @@
                     </div>
                     <div class="ibox-content">
                         <form method="get" class="form-horizontal">
-                            <input id="id" name="id" type="hidden" value="${id}" />
+                            <input type="hidden" id="taskId" name="taskId" value="${taskId}"/>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">任务名称</label>
+                                <label class="col-sm-2 control-label">名称</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="name" class="form-control"> <span class="help-block m-b-none">给你的任务起个nb的名字</span>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">任务地址</label>
+                                <label class="col-sm-2 control-label">xpath</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="pageUrl" class="form-control"> <span class="help-block m-b-none">URL</span>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">任务列表的xpath</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="listXpath" class="form-control"> <span class="help-block m-b-none">估计你也看不懂</span>
+                                    <input type="text" name="xpath" class="form-control"> <span class="help-block m-b-none">估计你也看不懂</span>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -61,53 +54,39 @@
                                 <div class="col-sm-10">
                                     <div class="radio i-checks">
                                         <label>
-                                            <input type="radio" value="0" name="dynamic"> <i></i> 静态网页</label>
+                                            <input type="radio" checked="checked" value="0" name="location"> <i></i> 包含内容</label>
                                     </div>
                                     <div class="radio i-checks">
                                         <label>
-                                            <input type="radio" checked="checked" value="1" name="dynamic"> <i></i> 动态网页</label>
+                                            <input type="radio"  value="1" name="location"> <i></i> 属性</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">分页任务
-                                    <br/><small class="text-navy">不选是不行滴</small>
-                                </label>
+                                <label class="col-sm-2 control-label">属性名</label>
                                 <div class="col-sm-10">
-                                    <div class="radio i-checks">
-                                        <label>
-                                            <input type="radio" checked="checked" value="0" name="multiPage"> <i></i> 单页</label>
-                                    </div>
-                                    <div class="radio i-checks">
-                                        <label>
-                                            <input type="radio" value="1" name="multiPage"> <i></i> 多页</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">分页路径模版</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="pageUrlTemplate" class="form-control"> <span class="help-block m-b-none">比如https://blog.csdn.net/it_man/article/list/15?t=1
+                                    <input type="text" name="attrName" class="form-control"> <span class="help-block m-b-none">比如https://blog.csdn.net/it_man/article/list/15?t=1
                                 将其中的页码替换成${r"${index}"}</span>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">开始页码</label>
+                                <label class="col-sm-2 control-label">正则表达式</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="startPage" class="form-control"> <span class="help-block m-b-none"></span>
+                                    <input type="text" name="regex" class="form-control"> <span class="help-block m-b-none"></span>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">结束页码</label>
+                                <label class="col-sm-2 control-label">关联页</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="endPage" class="form-control"> <span class="help-block m-b-none"></span>
+                                    <select class="form-control m-b" name="associatePageId" id="associatePageId">
+                                        <option value="">无</option>
+                                    </select>
                                 </div>
                             </div>
+
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
@@ -133,28 +112,12 @@
     <!-- iCheck -->
     <script src="js/plugins/iCheck/icheck.min.js"></script>
     <script>
-        $.fn.serializeObject = function()
-        {
-            var o = {};
-            var a = this.serializeArray();
-            $.each(a, function() {
-                if (o[this.name]) {
-                    if (!o[this.name].push) {
-                        o[this.name] = [o[this.name]];
-                    }
-                    o[this.name].push(this.value || '');
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        };
 
         //发送表单ajax请求
         $('#submitBtn').on('click',function(){
             $.ajax({
-                url:"task",
-                type:"PUT",
+                url:"element",
+                type:"POST",
                 data:JSON.stringify($('form').serializeObject()),
                 contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
                 success:function(){
@@ -166,20 +129,45 @@
             });
         });
 
-        $(document).ready(function () {
+        /**
+         * 自动将form表单封装成json对象
+         */
+        $.fn.serializeObject = function() {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [ o[this.name] ];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
 
-            initData();
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+            //关联页列表查询
+            initAssociatePageData();
 
         });
-        
-        function initData() {
-            var id = $("#id").val();
+
+        function initAssociatePageData() {
             $.ajax({
-                url:"task/"+id,
-                type:"get",
+                url:"associatePage/all?taskId="+$("#taskId").val(),
+                type:"GET",
                 contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
                 success:function(result){
-                    initFormData($("form"),result.data);
+                    $.each(result.data, function (key, value) {
+                        var optionStr = "<option value="+value.id+">"+value.name+"</option>";
+                       $("#associatePageId").append(optionStr);
+                    });
                 },
                 error:function (data) {
                     alert(JSON.stringify(data.message));
@@ -187,6 +175,9 @@
             });
         }
     </script>
+
+    
+    
 
 </body>
 

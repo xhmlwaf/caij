@@ -1,6 +1,6 @@
 package com.yaohui.caij.enums;
 
-public enum ContentType {
+public enum LocationType {
   /**
    * HTML-包含内容
    */
@@ -10,7 +10,7 @@ public enum ContentType {
    */
   ATTR(1, "属性值");
 
-  ContentType(int value, String desc) {
+  LocationType(int value, String desc) {
     this.value = value;
     this.desc = desc;
   }
@@ -22,8 +22,8 @@ public enum ContentType {
   /**
    * 通过value获取对象
    */
-  public static ContentType get(int val) {
-    for (ContentType c : ContentType.values()) {
+  public static LocationType get(int val) {
+    for (LocationType c : LocationType.values()) {
       if (c.getValue() == val) {
         return c;
       }

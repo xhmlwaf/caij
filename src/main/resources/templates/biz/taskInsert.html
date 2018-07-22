@@ -25,15 +25,8 @@
                     <div class="ibox-title">
                         <h5>所有表单元素 <small>包括自定义样式的复选和单选按钮</small></h5>
                         <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
+                            <button class="btn btn-primary btn-circle" type="button"><i class="fa fa-list"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -42,21 +35,21 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">任务名称</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"> <span class="help-block m-b-none">给你的任务起个nb的名字</span>
+                                    <input type="text" name="name" class="form-control"> <span class="help-block m-b-none">给你的任务起个nb的名字</span>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">任务地址</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"> <span class="help-block m-b-none">URL</span>
+                                    <input type="text" name="pageUrl" class="form-control"> <span class="help-block m-b-none">URL</span>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">任务列表的xpath</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"> <span class="help-block m-b-none">估计你也看不懂</span>
+                                    <input type="text" name="listXpath" class="form-control"> <span class="help-block m-b-none">估计你也看不懂</span>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -67,11 +60,11 @@
                                 <div class="col-sm-10">
                                     <div class="radio i-checks">
                                         <label>
-                                            <input type="radio" checked="checked" value="1" name="a"> <i></i> 动态网页</label>
+                                            <input type="radio"  value="0" name="dynamic"> <i></i> 静态数据</label>
                                     </div>
                                     <div class="radio i-checks">
                                         <label>
-                                            <input type="radio"  value="2" name="a"> <i></i> 静态网页</label>
+                                            <input type="radio" checked="checked" value="1" name="dynamic"> <i></i> 动态数据</label>
                                     </div>
                                 </div>
                             </div>
@@ -83,11 +76,11 @@
                                 <div class="col-sm-10">
                                     <div class="radio i-checks">
                                         <label>
-                                            <input type="radio" checked="checked" value="1" name="b"> <i></i> 单页</label>
+                                            <input type="radio" checked="checked" value="0" name="multiPage"> <i></i> 单页</label>
                                     </div>
                                     <div class="radio i-checks">
                                         <label>
-                                            <input type="radio"  value="2" name="b"> <i></i> 多页</label>
+                                            <input type="radio"  value="1" name="multiPage"> <i></i> 多页</label>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +89,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">分页路径模版</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"> <span class="help-block m-b-none">比如https://blog.csdn.net/it_man/article/list/15?t=1
+                                    <input type="text" name="pageUrlTemplate" class="form-control"> <span class="help-block m-b-none">比如https://blog.csdn.net/it_man/article/list/15?t=1
                                 将其中的页码替换成${r"${index}"}</span>
                                 </div>
                             </div>
@@ -104,62 +97,25 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">开始页码</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"> <span class="help-block m-b-none"></span>
+                                    <input type="text" name="startPage" class="form-control"> <span class="help-block m-b-none"></span>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">结束页码</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"> <span class="help-block m-b-none"></span>
+                                    <input type="text" name="endPage" class="form-control"> <span class="help-block m-b-none"></span>
                                 </div>
                             </div>
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-primary" type="submit">保存内容</button>
-                                    <button class="btn btn-white" type="submit">取消</button>
+                                    <button class="btn btn-primary" type="button" id="submitBtn">保存内容</button>
+                                    <button class="btn btn-white" type="button">取消</button>
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-form" class="modal fade" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-6 b-r">
-                            <h3 class="m-t-none m-b">登录</h3>
-                            <form role="form">
-                                <div class="form-group">
-                                    <label>用户名：</label>
-                                    <input type="email" placeholder="请输入用户名" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>密码：</label>
-                                    <input type="password" placeholder="请输入密码" class="form-control">
-                                </div>
-                                <div>
-                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>登录</strong>
-                                    </button>
-                                    <label>
-                                        <input type="checkbox" class="i-checks">自动登录</label>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm-6">
-                            <h4>还不是会员？</h4>
-                            <p>您可以注册一个账户</p>
-                            <p class="text-center">
-                                <a href="form_basic.html"><i class="fa fa-sign-in big-icon"></i></a>
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -176,11 +132,49 @@
     <!-- iCheck -->
     <script src="js/plugins/iCheck/icheck.min.js"></script>
     <script>
+
+        //发送表单ajax请求
+        $('#submitBtn').on('click',function(){
+            $.ajax({
+                url:"task",
+                type:"POST",
+                data:JSON.stringify($('form').serializeObject()),
+                contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                success:function(){
+                    alert("成功");
+                },
+                error:function (data) {
+                    alert(JSON.stringify(data.message));
+                }
+            });
+        });
+
+        /**
+         * 自动将form表单封装成json对象
+         */
+        $.fn.serializeObject = function() {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [ o[this.name] ];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
         $(document).ready(function () {
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
             });
+
+
         });
     </script>
 
