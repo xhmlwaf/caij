@@ -21,7 +21,7 @@ public class Swagger2Config {
                 .apiInfo(apiInfo())
                 .select()
                 //为当前包路径
-                .apis(RequestHandlerSelectors.basePackage("com.yaohui.template.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.yaohui.caij.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

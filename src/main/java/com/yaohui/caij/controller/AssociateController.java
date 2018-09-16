@@ -5,6 +5,7 @@ import com.yaohui.caij.constant.PagedResult;
 import com.yaohui.caij.controller.response.AssociateDTO;
 import com.yaohui.caij.controller.response.TaskDTO;
 
+import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
+@Api(value = "水电费水电费水电费")
 public class AssociateController {
 
   @GetMapping("/admin/associate")
