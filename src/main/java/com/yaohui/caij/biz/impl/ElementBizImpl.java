@@ -17,8 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ElementBizImpl implements ElementBiz {
@@ -38,14 +41,11 @@ public class ElementBizImpl implements ElementBiz {
 
     @Override
     public Result insertBatch(List<ElementInsertReqDTO> dtoList) {
-        List<Element> elementList = new ArrayList<>();
+        List<Element> elementList;
         if (CollectionUtils.isEmpty(dtoList)) {
             return Result.success(null);
         }
-        for (int i = 0; i < dtoList.size(); i++){
-            Element element = elementInsertReqDTO2DO(dtoList.get(i));
-            elementList.add(element);
-        }
+        elementList = dtoList.stream().map(this::elementInsertReqDTO2DO).collect(Collectors.toList());
 
         elementService.insertBatch(elementList);
         return Result.success(null);

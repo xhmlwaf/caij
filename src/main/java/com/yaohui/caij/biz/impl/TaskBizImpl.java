@@ -26,6 +26,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskBizImpl implements TaskBiz {
@@ -48,14 +49,11 @@ public class TaskBizImpl implements TaskBiz {
 
     @Override
     public Result insertBatch(List<TaskInsertReqDTO> dtoList) {
-        List<Task> taskList = new ArrayList<>();
+        List<Task> taskList;
         if (CollectionUtils.isEmpty(dtoList)) {
             return Result.success(null);
         }
-        for (int i = 0; i < dtoList.size(); i++) {
-            Task task = taskInsertReqDTO2DO(dtoList.get(i));
-            taskList.add(task);
-        }
+        taskList = dtoList.stream().map(this::taskInsertReqDTO2DO).collect(Collectors.toList());
 
         taskService.insertBatch(taskList);
         return Result.success(null);
@@ -140,7 +138,7 @@ public class TaskBizImpl implements TaskBiz {
         webPageConfig.setDynamic(task.getDynamic().intValue() == WebContentType.DYNAMIC.getType());
 
         PageConfig pageConfig = null;
-        if (task.getMultiPage() == Constants.MULTI_PAGE) {
+        if (task.getMultiPage().equals(Constants.MULTI_PAGE)) {
             pageConfig = new PageConfig();
             pageConfig.setNextPageUrl(task.getPageUrlTemplate());
             pageConfig.setStartPageNum(task.getStartPage());

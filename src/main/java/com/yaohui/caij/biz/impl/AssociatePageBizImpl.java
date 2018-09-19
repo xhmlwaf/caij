@@ -15,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -39,8 +37,8 @@ public class AssociatePageBizImpl implements AssociatePageBiz {
         if (CollectionUtils.isEmpty(dtoList)) {
             return Result.success(null);
         }
-        for (int i = 0; i < dtoList.size(); i++){
-            AssociatePage associatePage = associatePageInsertReqDTO2DO(dtoList.get(i));
+        for (AssociatePageInsertReqDTO aDtoList : dtoList) {
+            AssociatePage associatePage = associatePageInsertReqDTO2DO(aDtoList);
             associatePageList.add(associatePage);
         }
 

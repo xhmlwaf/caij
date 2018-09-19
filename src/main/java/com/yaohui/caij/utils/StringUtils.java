@@ -4,11 +4,7 @@ public class StringUtils {
 
     public static boolean isBlank(String str) {
 
-        if (str == null || "".equals(str.trim())) {
-            return true;
-        } else {
-            return false;
-        }
+        return str == null || "".equals(str.trim());
     }
 
     public static boolean isNotBlank(String str) {

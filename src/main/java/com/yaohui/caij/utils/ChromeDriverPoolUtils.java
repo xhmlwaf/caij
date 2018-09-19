@@ -17,7 +17,7 @@ public class ChromeDriverPoolUtils {
     private static final int MIN_IDLE = 5;
     private static final int MAX_WAIT_MILLIS = -1;
 
-    public static GenericObjectPool pool = null;
+    public static GenericObjectPool pool;
 
     static {
         pool = new GenericObjectPool(new ChromeDriverFactory(), genericObjectPoolConfig());

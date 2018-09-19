@@ -28,7 +28,7 @@ public class CaijUtils {
     public static final Logger logger = LoggerFactory.getLogger(CaijUtils.class);
 
     public static List<WebPageConfig> listWebPageConfig(WebPageConfig webPageConfig, PageConfig pageConfig) {
-        List<WebPageConfig> webPageConfigList = new ArrayList<WebPageConfig>();
+        List<WebPageConfig> webPageConfigList = new ArrayList<>();
         webPageConfigList.add(webPageConfig);
         if (pageConfig != null) {
             int start = pageConfig.getStartPageNum();
@@ -53,9 +53,9 @@ public class CaijUtils {
         }
         Document doc = JsoupUtil.getDocumentFromContent(webContent);
         List<Element> entityContentList = JsoupUtil.selectElements(doc, webPageConfig.getEntityListXpath());
-        List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> resultList = new ArrayList<>();
         for (Element e : entityContentList) {
-            Map<String, Object> m = new HashMap<String, Object>();
+            Map<String, Object> m = new HashMap<>();
             getResultMap(webPageConfig.getParamsRuleMap(), e, m);
             List<DetailPageConfig> detailPageConfigList = webPageConfig.getDetailPageConfigList();
             if (!CollectionUtils.isEmpty(detailPageConfigList)) {

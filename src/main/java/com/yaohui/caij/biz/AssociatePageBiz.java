@@ -6,8 +6,6 @@ import com.yaohui.caij.controller.request.AssociatePageInsertReqDTO;
 import com.yaohui.caij.controller.request.AssociatePageUpdateReqDTO;
 import com.yaohui.caij.controller.response.AssociatePageQueryRspDTO;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 public interface AssociatePageBiz {

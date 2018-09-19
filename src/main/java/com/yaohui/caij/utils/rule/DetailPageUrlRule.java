@@ -1,7 +1,6 @@
 package com.yaohui.caij.utils.rule;
 
 import com.yaohui.caij.constant.model.DetailPageConfig;
-import com.yaohui.caij.constant.model.WebPageConfig;
 import com.yaohui.caij.enums.LocationType;
 
 import org.jsoup.nodes.Element;
