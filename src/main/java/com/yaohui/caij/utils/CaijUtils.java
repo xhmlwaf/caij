@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,7 +85,7 @@ public class CaijUtils {
                 data = e.select(value.getXpath()).attr(value.getAttrName());
             }
             String regex = value.getRegex();
-            if (StringUtils.isNotBlank(regex)) {
+            if (!StringUtils.isEmpty(regex)) {
                 String regexStr = getGroupValue(data, regex);
                 if (regexStr != null) {
                     data = regexStr;

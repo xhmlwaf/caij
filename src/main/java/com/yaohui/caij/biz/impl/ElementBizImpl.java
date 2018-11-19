@@ -99,16 +99,18 @@ public class ElementBizImpl implements ElementBiz {
             }
         }
 
-        Map<Integer, String> associatePageMap = new HashMap<>();
-        List<AssociatePage> associatePages = associatePageService.selectByPrimaryKeyList(associatePageIds);
-        if (!CollectionUtils.isEmpty(associatePages)) {
-            for (AssociatePage associatePage : associatePages) {
-                associatePageMap.put(associatePage.getId(), associatePage.getName());
+        if (!CollectionUtils.isEmpty(associatePageIds)) {
+            Map<Integer, String> associatePageMap = new HashMap<>();
+            List<AssociatePage> associatePages = associatePageService.selectByPrimaryKeyList(associatePageIds);
+            if (!CollectionUtils.isEmpty(associatePages)) {
+                for (AssociatePage associatePage : associatePages) {
+                    associatePageMap.put(associatePage.getId(), associatePage.getName());
+                }
             }
-        }
-        if (!CollectionUtils.isEmpty(dtoList)) {
-            for (ElementQueryRspDTO dto : dtoList) {
-                dto.setAssociatePageName(associatePageMap.get(dto.getAssociatePageId()));
+            if (!CollectionUtils.isEmpty(dtoList)) {
+                for (ElementQueryRspDTO dto : dtoList) {
+                    dto.setAssociatePageName(associatePageMap.get(dto.getAssociatePageId()));
+                }
             }
         }
 

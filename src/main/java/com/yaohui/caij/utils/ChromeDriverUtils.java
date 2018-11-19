@@ -3,9 +3,11 @@ package com.yaohui.caij.utils;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
+@Component
 public class ChromeDriverUtils {
 
     @Value("${chrome_driver_path}")
@@ -34,7 +36,7 @@ public class ChromeDriverUtils {
 //    DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 //    capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 //    capabilities.setJavascriptEnabled(true);
-        System.setProperty("webdriver.chrome.driver", "E:\\软件\\chromedriver_win32\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", driverPath);
 
         return new ChromeDriver(options);
     }
