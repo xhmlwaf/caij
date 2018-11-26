@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 @Component
 public class CaijTaskTheakPool {
 
-    private static final int CAIJ_TASK_THREAD_SIZE = 5;
+    private static final int CAIJ_TASK_THREAD_SIZE = 3;
 
     public CaijTaskTheakPool() {
         ExecutorService executorService = Executors.newFixedThreadPool(CAIJ_TASK_THREAD_SIZE);

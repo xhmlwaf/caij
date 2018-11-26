@@ -8,7 +8,7 @@ public class ChromeDriverFactory extends BasePooledObjectFactory {
 
     @Override
     public Object create() throws Exception {
-        return ChromeDriverUtils.getDriver();
+        return SpringUtil.getBean(ChromeDriverUtils.class).getDriver();
     }
 
     @Override
