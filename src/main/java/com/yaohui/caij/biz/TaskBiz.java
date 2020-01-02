@@ -6,7 +6,6 @@ import com.yaohui.caij.controller.request.TaskInsertReqDTO;
 import com.yaohui.caij.controller.request.TaskUpdateReqDTO;
 import com.yaohui.caij.controller.response.TaskQueryRspDTO;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 

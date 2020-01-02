@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class ChromeDriverUtils {
 
   @Value("${chrome_driver_path}")
-  private String driverPath;
+  private String driverPath = "D:\\software\\chromedriver_win32\\chromedriver.exe";
 
   /**
    * @desc get chrome driver

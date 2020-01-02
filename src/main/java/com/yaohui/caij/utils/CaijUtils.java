@@ -3,19 +3,17 @@ package com.yaohui.caij.utils;
 import com.google.common.collect.Lists;
 
 import com.alibaba.fastjson.JSON;
+import com.yaohui.caij.bo.DetailPageConfigBO;
+import com.yaohui.caij.bo.PageConfigBO;
+import com.yaohui.caij.bo.ParamsElementBO;
+import com.yaohui.caij.bo.WebPageConfigBO;
 import com.yaohui.caij.cache.FileUrlQueue;
-import com.yaohui.caij.constant.model.DetailPageConfig;
-import com.yaohui.caij.constant.model.PageConfig;
-import com.yaohui.caij.constant.model.ParamsElement;
-import com.yaohui.caij.constant.model.WebPageConfig;
-import com.yaohui.caij.enums.LocationType;
+import com.yaohui.caij.enums.LocationTypeEnum;
 import com.yaohui.caij.utils.rule.DetailPageUrlRule;
 import com.yaohui.caij.utils.rule.NextPageUrlRule;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -28,49 +26,52 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class CaijUtils {
 
-  public static final Logger logger = LoggerFactory.getLogger(CaijUtils.class);
-
-  public static List<WebPageConfig> listWebPageConfig(WebPageConfig webPageConfig, PageConfig pageConfig) {
-    List<WebPageConfig> webPageConfigList = new ArrayList<>();
-    webPageConfigList.add(webPageConfig);
-    if (pageConfig != null) {
-      int start = pageConfig.getStartPageNum();
-      int end = pageConfig.getEndPageNum();
+  public static List<WebPageConfigBO> listWebPageConfig(WebPageConfigBO webPageConfigBO, PageConfigBO pageConfigBO) {
+    List<WebPageConfigBO> webPageConfigBOList = new ArrayList<>();
+    webPageConfigBOList.add(webPageConfigBO);
+    if (pageConfigBO != null) {
+      int start = pageConfigBO.getStartPageNum();
+      int end = pageConfigBO.getEndPageNum();
       for (int i = start; i <= end; i++) {
-        WebPageConfig t = new WebPageConfig();
-        BeanUtils.copyProperties(webPageConfig, t);
-        String url = NextPageUrlRule.getNextPageUrl(pageConfig, i);
+        WebPageConfigBO t = new WebPageConfigBO();
+        BeanUtils.copyProperties(webPageConfigBO, t);
+        String url = NextPageUrlRule.getNextPageUrl(pageConfigBO, i);
         t.setTargetUrl(url);
-        webPageConfigList.add(t);
+        webPageConfigBOList.add(t);
       }
     }
-    return webPageConfigList;
+    return webPageConfigBOList;
   }
 
-  public static List<Map<String, Object>> dealAndReturn(WebPageConfig webPageConfig) {
-    logger.info("采集目标URL:" + webPageConfig.getTargetUrl());
-    String webContent = WebPageContentUtil.getWebPageContent(webPageConfig.getTargetUrl(), webPageConfig.isDynamic());
+  public static List<Map<String, Object>> dealAndReturn(WebPageConfigBO webPageConfigBO) {
+    log.info("采集目标URL:" + webPageConfigBO.getTargetUrl());
+    String webContent = WebPageContentUtil.getWebPageContent(webPageConfigBO.getTargetUrl(), webPageConfigBO.isDynamic());
     if (webContent == null) {
-      logger.error("获取网页内容异常.url:" + webPageConfig.getTargetUrl());
+      log.error("获取网页内容异常.url:" + webPageConfigBO.getTargetUrl());
       return null;
     }
     Document doc = JsoupUtil.getDocumentFromContent(webContent);
-    List<Element> entityContentList = JsoupUtil.selectElements(doc, webPageConfig.getEntityListXpath());
+    List<Element> entityContentList = JsoupUtil.selectElements(doc, webPageConfigBO.getEntityListXpath());
+    log.info("找到目标个数:{}", entityContentList.size());
     List<Map<String, Object>> resultList = new ArrayList<>();
     for (Element e : entityContentList) {
       Map<String, Object> m = new HashMap<>();
-      getResultMap(webPageConfig.getParamsRuleMap(), e, m, webPageConfig.getHomeUrl());
-      List<DetailPageConfig> detailPageConfigList = webPageConfig.getDetailPageConfigList();
-      if (!CollectionUtils.isEmpty(detailPageConfigList)) {
-        for (DetailPageConfig detailPageConfig : detailPageConfigList) {
-          String detailPageUrl = DetailPageUrlRule.getDetailPageUrl(webPageConfig.getHomeUrl(), detailPageConfig, e);
-          String detailWebContent = WebPageContentUtil.getWebPageContent(detailPageUrl, webPageConfig.isDynamic());
+      getResultMap(webPageConfigBO.getParamsRuleMap(), e, m, webPageConfigBO.getHomeUrl());
+      List<DetailPageConfigBO> detailPageConfigBOList = webPageConfigBO.getDetailPageConfigBOList();
+      if (!CollectionUtils.isEmpty(detailPageConfigBOList)) {
+        for (DetailPageConfigBO detailPageConfigBO : detailPageConfigBOList) {
+          String detailPageUrl = DetailPageUrlRule.getDetailPageUrl(webPageConfigBO.getHomeUrl(), detailPageConfigBO, e);
+          String detailWebContent = WebPageContentUtil.getWebPageContent(detailPageUrl, webPageConfigBO.isDynamic());
           Document detailDoc = JsoupUtil.getDocumentFromContent(detailWebContent);
-          getResultMap(detailPageConfig.getOtherParamsRuleMap(), detailDoc, m, webPageConfig.getHomeUrl());
+          getResultMap(detailPageConfigBO.getOtherParamsRuleMap(), detailDoc, m, webPageConfigBO.getHomeUrl());
         }
       }
+      log.info("m:{}", JSON.toJSONString(m));
       resultList.add(m);
     }
     System.out.println(JSON.toJSONString(resultList));
@@ -78,14 +79,17 @@ public class CaijUtils {
     return resultList;
   }
 
-  private static void getResultMap(Map<String, ParamsElement> paramsMap, Element e, Map<String, Object> result, String homeUrl) {
-    for (Map.Entry<String, ParamsElement> entry : paramsMap.entrySet()) {
+  private static void getResultMap(Map<String, ParamsElementBO> paramsMap, Element e, Map<String, Object> result, String homeUrl) {
+    if (CollectionUtils.isEmpty(paramsMap)) {
+      return;
+    }
+    for (Map.Entry<String, ParamsElementBO> entry : paramsMap.entrySet()) {
       String key = entry.getKey();
-      ParamsElement value = entry.getValue();
+      ParamsElementBO value = entry.getValue();
       String data = null;
-      if (value.getLocation() == LocationType.HTML.getValue()) {
+      if (value.getLocation() == LocationTypeEnum.HTML.getValue()) {
         data = e.select(value.getXpath()).html();
-      } else if (value.getLocation() == LocationType.ATTR.getValue()) {
+      } else if (value.getLocation() == LocationTypeEnum.ATTR.getValue()) {
         data = e.select(value.getXpath()).attr(value.getAttrName());
       }
       String regex = value.getRegex();

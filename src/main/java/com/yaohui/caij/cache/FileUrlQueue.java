@@ -1,14 +1,12 @@
 package com.yaohui.caij.cache;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class FileUrlQueue {
+import lombok.extern.slf4j.Slf4j;
 
-  public static final Logger logger = LoggerFactory.getLogger(FileUrlQueue.class);
+@Slf4j
+public class FileUrlQueue {
 
   private static final int MAX_QUEUE_SIZE = 100000;
 
@@ -18,7 +16,7 @@ public class FileUrlQueue {
     try {
       fileUrlQueue.put(url);
     } catch (InterruptedException e) {
-      logger.error("放入队列出错.", e);
+      log.error("放入队列出错.", e);
     }
   }
 
@@ -27,7 +25,7 @@ public class FileUrlQueue {
     try {
       url = fileUrlQueue.take();
     } catch (InterruptedException e) {
-      logger.error("从队列获取发生异常.", e);
+      log.error("从队列获取发生异常.", e);
     }
     return url;
   }

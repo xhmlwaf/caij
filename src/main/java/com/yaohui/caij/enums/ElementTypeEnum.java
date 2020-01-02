@@ -1,14 +1,14 @@
 package com.yaohui.caij.enums;
 
-public enum DealType {
+public enum ElementTypeEnum {
 
-  SAVE_TEXT(0, "保存文本"),
-  DOWNLOAD(1, "下载文件");
+  TEXT(0, "文本"),
+  FILEPATH(1, "文件路径");
 
   private int type;
   private String desc;
 
-  DealType(int type, String desc) {
+  ElementTypeEnum(int type, String desc) {
     this.type = type;
     this.desc = desc;
   }
@@ -16,8 +16,8 @@ public enum DealType {
   /**
    * 通过value获取对象
    */
-  public static DealType get(int val) {
-    for (DealType c : DealType.values()) {
+  public static ElementTypeEnum get(int val) {
+    for (ElementTypeEnum c : ElementTypeEnum.values()) {
       if (c.getType() == val) {
         return c;
       }

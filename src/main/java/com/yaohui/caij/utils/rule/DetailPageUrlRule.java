@@ -1,9 +1,13 @@
 package com.yaohui.caij.utils.rule;
 
-import com.yaohui.caij.constant.model.DetailPageConfig;
-import com.yaohui.caij.enums.LocationType;
+import com.google.common.collect.Lists;
+
+import com.yaohui.caij.bo.DetailPageConfigBO;
+import com.yaohui.caij.enums.LocationTypeEnum;
 
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.springframework.util.StringUtils;
 
 public class DetailPageUrlRule {
 
@@ -12,12 +16,13 @@ public class DetailPageUrlRule {
     /**
      * 获取详情页信息
      */
-    public static String getDetailPageUrl(String homeUrl, DetailPageConfig detailPageConfig, Element e) {
+    public static String getDetailPageUrl(String homeUrl, DetailPageConfigBO detailPageConfigBO, Element e) {
         String value = null;
-        if (detailPageConfig.getLocation() == LocationType.HTML.getValue()) {
-            value = e.select(detailPageConfig.getXpath()).html();
-        } else if (detailPageConfig.getLocation() == LocationType.ATTR.getValue()) {
-            value = e.select(detailPageConfig.getXpath()).attr(detailPageConfig.getAttrName());
+        Elements target = StringUtils.isEmpty(detailPageConfigBO.getXpath()) ? new Elements(Lists.newArrayList(e)) : e.select(detailPageConfigBO.getXpath());
+        if (detailPageConfigBO.getLocation() == LocationTypeEnum.HTML.getValue()) {
+            value = target.html();
+        } else if (detailPageConfigBO.getLocation() == LocationTypeEnum.ATTR.getValue()) {
+            value = target.attr(detailPageConfigBO.getAttrName());
         }
         if (value != null && !value.toLowerCase().startsWith(URL_START_TAG)) {
             return homeUrl + value;

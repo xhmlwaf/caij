@@ -1,7 +1,7 @@
 package com.yaohui.caij.utils.rule;
 
 
-import com.yaohui.caij.constant.model.PageConfig;
+import com.yaohui.caij.bo.PageConfigBO;
 
 public class NextPageUrlRule {
 
@@ -11,8 +11,8 @@ public class NextPageUrlRule {
   private static final String PAGE_INDEX_TAG = "${index}";
 
 
-  public static String getNextPageUrl(PageConfig pageConfig, int index) {
-    String nextPageRule = pageConfig.getNextPageUrl();
+  public static String getNextPageUrl(PageConfigBO pageConfigBO, int index) {
+    String nextPageRule = pageConfigBO.getNextPageUrl();
     nextPageRule = nextPageRule.replace(PAGE_INDEX_TAG, index + "");
     return nextPageRule;
   }

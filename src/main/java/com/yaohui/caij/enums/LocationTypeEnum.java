@@ -1,6 +1,6 @@
 package com.yaohui.caij.enums;
 
-public enum LocationType {
+public enum LocationTypeEnum {
   /**
    * HTML-包含内容
    */
@@ -10,7 +10,7 @@ public enum LocationType {
    */
   ATTR(1, "属性值");
 
-  LocationType(int value, String desc) {
+  LocationTypeEnum(int value, String desc) {
     this.value = value;
     this.desc = desc;
   }
@@ -22,8 +22,8 @@ public enum LocationType {
   /**
    * 通过value获取对象
    */
-  public static LocationType get(int val) {
-    for (LocationType c : LocationType.values()) {
+  public static LocationTypeEnum get(int val) {
+    for (LocationTypeEnum c : LocationTypeEnum.values()) {
       if (c.getValue() == val) {
         return c;
       }

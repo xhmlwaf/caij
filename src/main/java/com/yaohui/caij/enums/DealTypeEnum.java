@@ -1,13 +1,14 @@
 package com.yaohui.caij.enums;
 
-public enum WebContentType {
-  DYNAMIC(1, "动态"),
-  STATIC(0, "静态");
+public enum DealTypeEnum {
+
+  SAVE_TEXT(0, "保存文本"),
+  DOWNLOAD(1, "下载文件");
 
   private int type;
   private String desc;
 
-  WebContentType(int type, String desc) {
+  DealTypeEnum(int type, String desc) {
     this.type = type;
     this.desc = desc;
   }
@@ -15,8 +16,8 @@ public enum WebContentType {
   /**
    * 通过value获取对象
    */
-  public static WebContentType get(int val) {
-    for (WebContentType c : WebContentType.values()) {
+  public static DealTypeEnum get(int val) {
+    for (DealTypeEnum c : DealTypeEnum.values()) {
       if (c.getType() == val) {
         return c;
       }

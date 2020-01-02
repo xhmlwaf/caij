@@ -1,18 +1,16 @@
 package com.yaohui.caij.utils;
 
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class WebPageContentUtil {
-
-  public static final Logger logger = LoggerFactory.getLogger(WebPageContentUtil.class);
-
 
   /**
    * 根据URL地址获取网页内容
@@ -21,23 +19,18 @@ public class WebPageContentUtil {
    * @return : java.lang.String
    */
   private static String getSourceContent(String urlString) throws Exception {
-    try {
-      StringBuffer html = new StringBuffer();
-      URL url = new URL(urlString);
-      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-      InputStreamReader isr = new InputStreamReader(conn.getInputStream());
-      BufferedReader br = new BufferedReader(isr);
-      String temp;
-      while ((temp = br.readLine()) != null) {
-        html.append(temp).append("\n");
-      }
-      br.close();
-      isr.close();
-      return html.toString();
-    } catch (Exception e) {
-      logger.error("获取网页内容异常.url:" + urlString, e);
+    StringBuilder html = new StringBuilder();
+    URL url = new URL(urlString);
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    InputStreamReader isr = new InputStreamReader(conn.getInputStream());
+    BufferedReader br = new BufferedReader(isr);
+    String temp;
+    while ((temp = br.readLine()) != null) {
+      html.append(temp).append("\n");
     }
-    return null;
+    br.close();
+    isr.close();
+    return html.toString();
   }
 
   /**
@@ -70,7 +63,7 @@ public class WebPageContentUtil {
         return getSourceContent(url);
       }
     } catch (Exception e) {
-      logger.error("获取网页内容发生异常.", e);
+      log.error("获取网页内容发生异常.", e);
       return null;
     }
   }

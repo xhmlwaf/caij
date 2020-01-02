@@ -1,14 +1,13 @@
 package com.yaohui.caij.enums;
 
-public enum ElementType {
-
-  TEXT(0, "文本"),
-  FILEPATH(1, "文件路径");
+public enum WebContentTypeEnum {
+  DYNAMIC(1, "动态"),
+  STATIC(0, "静态");
 
   private int type;
   private String desc;
 
-  ElementType(int type, String desc) {
+  WebContentTypeEnum(int type, String desc) {
     this.type = type;
     this.desc = desc;
   }
@@ -16,8 +15,8 @@ public enum ElementType {
   /**
    * 通过value获取对象
    */
-  public static ElementType get(int val) {
-    for (ElementType c : ElementType.values()) {
+  public static WebContentTypeEnum get(int val) {
+    for (WebContentTypeEnum c : WebContentTypeEnum.values()) {
       if (c.getType() == val) {
         return c;
       }

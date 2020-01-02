@@ -29,11 +29,11 @@ public class FileDownloadThread implements Runnable {
       while (true) {
         String url = FileUrlQueue.take();
         if (Objects.nonNull(url)) {
-          logger.info("开始下载." + url);
+          logger.info("开始下载：" + url);
           String stuff = getStuff(url);
 
           DownLoadUtil.downloadFileFromUrl(url, getUUID32() + stuff, SAVE_PATH);
-          logger.info("下载完成" + url);
+          logger.info("下载完成：" + url);
         }
       }
 
